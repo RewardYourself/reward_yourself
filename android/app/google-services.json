@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "719491739988",
+    "project_id": "reward-yourself-c883c",
+    "storage_bucket": "reward-yourself-c883c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719491739988:android:df1f070bb25bc438d7d8c1",
+        "android_client_info": {
+          "package_name": "com.example.reward_yourself"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719491739988-mi9adbh6062lnp73535ah8m2jd80c859.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB27UMAFJdmz8BH1VT3E95fv_WEyTxvLRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719491739988-mi9adbh6062lnp73535ah8m2jd80c859.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "719491739988-megn74579t2qi34libn3bgnf7oashclv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rewardYourself"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
