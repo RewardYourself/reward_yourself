@@ -18,6 +18,10 @@ class LoginPage extends StatelessWidget {
           child: Text("Login com o google"),
         ),
         TextButton(
+          onPressed: loginController.signInWithFacebook,
+          child: Text("Login com o facebook"),
+        ),
+        TextButton(
             onPressed: () {
               FirebaseAuth.instance.signOut();
             },
