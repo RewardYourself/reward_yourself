@@ -1,6 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_controller.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_page.dart';
+import 'package:reward_yourself/app/modules/authentication/presenter/register_page.dart';
+import 'package:reward_yourself/app/modules/authentication/presenter/home_page.dart';
 
 class AuthenticationModule extends Module {
   @override
@@ -13,6 +15,14 @@ class AuthenticationModule extends Module {
       child: (context, args) => LoginPage(
         loginController: context.read(),
       ),
+    ),
+    ChildRoute(
+      '/register',
+      child: (context, args) => RegisterPage(),
+    ),
+    ChildRoute(
+      '/home',
+      child: (context, args) => HomePage(),
     ),
   ];
 }

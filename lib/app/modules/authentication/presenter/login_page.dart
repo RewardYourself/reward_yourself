@@ -1,9 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:math';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/components/body.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_controller.dart';
 
@@ -20,6 +19,10 @@ class _LoginPageState extends State<LoginPage> {
   bool continueConnected = false;
   LoginController loginController;
   _LoginPageState(this.loginController);
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,23 +85,28 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Column(
                       children: [
-                        Text(
-                          "Criar uma conta",
-                          style: TextStyle(
+                        TextButton(
+                          onPressed: () => Modular.to.pushNamed('/register'),
+                          child: Text(
+                            "Criar uma conta",
+                            style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
-                              color: Color(0xFFFDA951)),
-                          textAlign: TextAlign.center,
-                        )
+                              color: Color(0xFFFDA951)
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 20)),
-                Form(
-                    child: Column(
+                Form(child: Column(
                   children: [
                     TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
                       autofocus: true,
                       decoration: InputDecoration(
                         labelText: "E-mail",
@@ -115,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 6)),
                     TextFormField(
+                      controller: _passwordController,
                       autofocus: true,
                       obscureText: true,
                       decoration: InputDecoration(
@@ -189,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 20)),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => loginController.signInWithEmail(_emailController.text, _passwordController.text),
                   child: Text("Entrar"),
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(200, 56),
