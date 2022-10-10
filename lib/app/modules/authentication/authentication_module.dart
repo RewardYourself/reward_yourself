@@ -3,6 +3,7 @@ import 'package:reward_yourself/app/modules/authentication/presenter/login_contr
 import 'package:reward_yourself/app/modules/authentication/presenter/login_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/register_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/home_page.dart';
+import 'package:reward_yourself/app/modules/authentication/presenter/sucess_page.dart';
 
 class AuthenticationModule extends Module {
   @override
@@ -23,6 +24,10 @@ class AuthenticationModule extends Module {
     ChildRoute(
       '/home',
       child: (context, args) => HomePage(),
+    ),
+    ChildRoute(
+      '/home/success',
+      child: (context, args) => SuccessPage(),
     ),
   ];
 }
