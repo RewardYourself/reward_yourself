@@ -2,8 +2,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:reward_yourself/app/modules/authentication/presenter/components/body.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -49,16 +47,19 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Text(
                       "Reward  ",
-                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Color(0xFFFDA951),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'MavenPro',
                         fontSize: 23,
+                        color: Color(0xFFFDA951),
                       ),
+                      textAlign: TextAlign.center,
                     ),
                     Text(
                       "Yourself",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'MavenPro',
                         fontSize: 23,
                         color: Color(0xFFFDA951),
                       ),
@@ -76,9 +77,11 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           "Fazer Login",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                              color: Color(0xFF8F8F8F)),
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Poppins',
+                            fontSize: 24,
+                            color: Color(0xFF8F8F8F),
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -91,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                             "Criar uma conta",
                             style: TextStyle(
                               fontWeight: FontWeight.normal,
+                              fontFamily: 'Poppins',
                               fontSize: 12,
                               color: Color(0xFFFDA951)
                             ),
@@ -108,9 +112,20 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
                       autofocus: true,
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                      ),
                       decoration: InputDecoration(
                         labelText: "E-mail",
-                        labelStyle: TextStyle(color: Colors.black54),
+                        labelStyle: TextStyle(
+                          color: Colors.black54,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                        ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5)),
                         focusedBorder: OutlineInputBorder(
@@ -121,31 +136,37 @@ class _LoginPageState extends State<LoginPage> {
                             )),
                       ),
                     ),
-                    Padding(padding: EdgeInsets.only(bottom: 6)),
+                    Padding(padding: EdgeInsets.only(bottom: 10)),
                     TextFormField(
                       controller: _passwordController,
                       autofocus: true,
                       obscureText: true,
                       decoration: InputDecoration(
-                          labelText: "Senha",
-                          labelStyle: TextStyle(color: Colors.black54),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color(0xFFFDA951),
-                              )),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              print("Visibilidade da senha alterada!");
-                            },
-                            child: Icon(
-                              Icons.visibility,
+                        labelText: "Senha",
+                        labelStyle: TextStyle(
+                          color: Colors.black54,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                              width: 2,
                               color: Color(0xFFFDA951),
-                            ),
-                          )),
+                            )),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            print("Visibilidade da senha alterada!");
+                          },
+                          child: Icon(
+                            Icons.visibility,
+                            color: Color(0xFFFDA951),
+                          ),
+                        )
+                      ),
                     ),
                   ],
                 )),
@@ -174,7 +195,10 @@ class _LoginPageState extends State<LoginPage> {
                             Text(
                               "Lembrar-me",
                               style: TextStyle(
-                                  color: Colors.black54, fontSize: 12),
+                                color: Colors.black54,
+                                fontFamily: 'Poppins',
+                                fontSize: 12
+                              ),
                             )
                           ],
                         ),
@@ -190,7 +214,10 @@ class _LoginPageState extends State<LoginPage> {
                               "Esqueci minha senha",
                               textAlign: TextAlign.right,
                               style: TextStyle(
-                                  color: Colors.black54, fontSize: 12),
+                                color: Colors.black54,
+                                fontFamily: 'Poppins',
+                                fontSize: 12
+                              ),
                             )),
                       ],
                     ),
@@ -203,8 +230,11 @@ class _LoginPageState extends State<LoginPage> {
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(200, 56),
                     backgroundColor: Color(0xFFFDA951),
-                    textStyle:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    textStyle: TextStyle(
+                      fontFamily: 'Archivo',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16
+                    ),
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 35)),

@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-register(nameUser, emailAddress, password) async {
+register(emailAddress, password) async {
   try {
     final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: emailAddress,
       password: password,
     );
     if (credential != null) {
-      Modular.to.navigate('/');
+      Modular.to.navigate('/home/success');
     }
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
