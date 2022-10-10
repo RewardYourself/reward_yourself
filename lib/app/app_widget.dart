@@ -7,9 +7,9 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      title: 'Reward Yourself',
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
-      title: 'Reward Yourself',
       debugShowCheckedModeBanner: false,
     );
   }
