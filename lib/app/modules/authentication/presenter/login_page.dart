@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Image.asset(
-                  "../../../../../assets/images/multiTaskGirl.png",
+                  "assets/images/multiTaskGirl.png",
                   alignment: Alignment.center,
                 ),
                 Row(
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "../../../../../assets/images/Logo.png",
+                      "assets/images/Logo.png",
                       width: 34,
                       height: 32,
                     ),
@@ -93,11 +93,10 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text(
                             "Criar uma conta",
                             style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontFamily: 'Poppins',
-                              fontSize: 12,
-                              color: Color(0xFFFDA951)
-                            ),
+                                fontWeight: FontWeight.normal,
+                                fontFamily: 'Poppins',
+                                fontSize: 12,
+                                color: Color(0xFFFDA951)),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -106,12 +105,12 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 20)),
-                Form(child: Column(
+                Form(
+                    child: Column(
                   children: [
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
-                      autofocus: true,
                       style: TextStyle(
                         color: Colors.black54,
                         fontFamily: 'Poppins',
@@ -139,34 +138,32 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(padding: EdgeInsets.only(bottom: 10)),
                     TextFormField(
                       controller: _passwordController,
-                      autofocus: true,
                       obscureText: true,
                       decoration: InputDecoration(
-                        labelText: "Senha",
-                        labelStyle: TextStyle(
-                          color: Colors.black54,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14,
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color(0xFFFDA951),
-                            )),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            print("Visibilidade da senha alterada!");
-                          },
-                          child: Icon(
-                            Icons.visibility,
-                            color: Color(0xFFFDA951),
+                          labelText: "Senha",
+                          labelStyle: TextStyle(
+                            color: Colors.black54,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
                           ),
-                        )
-                      ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: Color(0xFFFDA951),
+                              )),
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              print("Visibilidade da senha alterada!");
+                            },
+                            child: Icon(
+                              Icons.visibility,
+                              color: Color(0xFFFDA951),
+                            ),
+                          )),
                     ),
                   ],
                 )),
@@ -195,10 +192,9 @@ class _LoginPageState extends State<LoginPage> {
                             Text(
                               "Lembrar-me",
                               style: TextStyle(
-                                color: Colors.black54,
-                                fontFamily: 'Poppins',
-                                fontSize: 12
-                              ),
+                                  color: Colors.black54,
+                                  fontFamily: 'Poppins',
+                                  fontSize: 12),
                             )
                           ],
                         ),
@@ -214,10 +210,9 @@ class _LoginPageState extends State<LoginPage> {
                               "Esqueci minha senha",
                               textAlign: TextAlign.right,
                               style: TextStyle(
-                                color: Colors.black54,
-                                fontFamily: 'Poppins',
-                                fontSize: 12
-                              ),
+                                  color: Colors.black54,
+                                  fontFamily: 'Poppins',
+                                  fontSize: 12),
                             )),
                       ],
                     ),
@@ -225,16 +220,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 20)),
                 ElevatedButton(
-                  onPressed: () => loginController.signInWithEmail(_emailController.text, _passwordController.text),
+                  onPressed: () => loginController.signInWithEmail(
+                      _emailController.text, _passwordController.text),
                   child: Text("Entrar"),
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(200, 56),
                     backgroundColor: Color(0xFFFDA951),
                     textStyle: TextStyle(
-                      fontFamily: 'Archivo',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16
-                    ),
+                        fontFamily: 'Archivo',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16),
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 35)),
@@ -246,8 +241,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       ElevatedButton(
                         onPressed: loginController.signInWithGoogle,
-                        child: Image.asset(
-                            "../../../../../assets/images/googleIcon.png"),
+                        child: Image.asset("assets/images/googleIcon.png"),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(70, 41),
                           backgroundColor: Colors.white,
@@ -257,8 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       ElevatedButton(
                         onPressed: loginController.signInWithFacebook,
-                        child: Image.asset(
-                            "../../../../../assets/images/facebookIcon.png"),
+                        child: Image.asset("assets/images/facebookIcon.png"),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(70, 41),
                           backgroundColor: Colors.white,

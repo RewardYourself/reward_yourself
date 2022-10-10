@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:asuka/snackbars/asuka_snack_bar.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -37,30 +37,16 @@ class LoginController {
 
   signInWithEmail(emailAddress, password) async {
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailAddress,
-        password: password
-      );
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emailAddress, password: password);
       if (credential != null) {
         Modular.to.navigate('/home');
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(
-        //     content:  Text('Usuário não encontrado'),
-        //     backgroundColor: Colors.redAccent,
-        //   ),
-        // );
-        print('No user found for that email.');
+        AsukaSnackbar.warning("Usuário não encontrado");
       } else if (e.code == 'wrong-password') {
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(
-        //     content:  Text('Sua senha está errada'),
-        //     backgroundColor: Colors.redAccent,
-        //   ),
-        // );
-        print('Wrong password provided for that user.');
+        AsukaSnackbar.warning("Sua senha está errada");
       }
     }
   }
