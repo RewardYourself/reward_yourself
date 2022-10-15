@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.loginController}) : super(key: key);
@@ -26,6 +27,30 @@ class _LoginPageState extends State<LoginPage> {
   bool _validatePassword = false;
 
   @override
+  void initState() {
+    _loadUserEmailPassword();
+    super.initState();
+  }
+
+  void _loadUserEmailPassword() async {
+    try {
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      var _email = _prefs.getString("email") ?? "";
+      var _password = _prefs.getString("password") ?? "";
+      var _rememberMe = _prefs.getBool("remember_me") ?? false;
+      if (_rememberMe) {
+        setState(() {
+          continueConnected = true;
+        });
+        _emailController.text = _email ?? "";
+        _passwordController.text = _password ?? "";
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -40,37 +65,37 @@ class _LoginPageState extends State<LoginPage> {
                   "assets/images/multiTaskGirl.png",
                   alignment: Alignment.center,
                 ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/Logo.png",
-                        width: 34,
-                        height: 32,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/Logo.png",
+                      width: 34,
+                      height: 32,
+                    ),
+                    Text(
+                      "Reward  ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'MavenPro',
+                        fontSize: 23,
+                        color: Color(0xFFFDA951),
                       ),
-                      Text(
-                        "Reward  ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'MavenPro',
-                          fontSize: 23,
-                          color: Color(0xFFFDA951),
-                        ),
-                        textAlign: TextAlign.center,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      "Yourself",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'MavenPro',
+                        fontSize: 23,
+                        color: Color(0xFFFDA951),
                       ),
-                      Text(
-                        "Yourself",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'MavenPro',
-                          fontSize: 23,
-                          color: Color(0xFFFDA951),
-                        ),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
                 Padding(padding: EdgeInsets.only(bottom: 50)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,7 +147,8 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 14,
                       ),
                       decoration: InputDecoration(
-                        errorText: _validateEmail ? 'Campo de email vazio!':null,
+                        errorText:
+                            _validateEmail ? 'Campo de email vazio!' : null,
                         labelText: "E-mail",
                         labelStyle: TextStyle(
                           color: Colors.black54,
@@ -146,7 +172,9 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                           labelText: "Senha",
-                          errorText: _validatePassword ? 'Campo de senha vazio!':null,
+                          errorText: _validatePassword
+                              ? 'Campo de senha vazio!'
+                              : null,
                           labelStyle: TextStyle(
                             color: Colors.black54,
                             fontFamily: 'Poppins',
@@ -167,7 +195,10 @@ class _LoginPageState extends State<LoginPage> {
                                 _obscureText = !_obscureText;
                               });
                             },
-                            child: Icon( _obscureText ?Icons.visibility :Icons.visibility_off,
+                            child: Icon(
+                              _obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                               color: Color(0xFFFDA951),
                             ),
                           )),
@@ -194,6 +225,15 @@ class _LoginPageState extends State<LoginPage> {
                                     continueConnected = newValue;
                                   }
                                 });
+                                SharedPreferences.getInstance().then((prefs) {
+                                  if (newValue != null) {
+                                    prefs.setBool("remember_me", newValue);
+                                    prefs.setString(
+                                        'email', _emailController.text);
+                                    prefs.setString(
+                                        'password', _passwordController.text);
+                                  }
+                                });
                               },
                             ),
                             Text(
@@ -210,7 +250,8 @@ class _LoginPageState extends State<LoginPage> {
                     Column(
                       children: [
                         GestureDetector(
-                            onTap: () => Modular.to.pushNamed('/forgetPassword'),
+                            onTap: () =>
+                                Modular.to.pushNamed('/forgetPassword'),
                             child: Text(
                               "Esqueci minha senha",
                               textAlign: TextAlign.right,
@@ -227,10 +268,15 @@ class _LoginPageState extends State<LoginPage> {
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      _emailController.text.isEmpty ? _validateEmail = true : _validateEmail = false;
-                      _passwordController.text.isEmpty ? _validatePassword = true : _validatePassword = false;
+                      _emailController.text.isEmpty
+                          ? _validateEmail = true
+                          : _validateEmail = false;
+                      _passwordController.text.isEmpty
+                          ? _validatePassword = true
+                          : _validatePassword = false;
                     });
-                    loginController.signInWithEmail(_emailController.text, _passwordController.text);
+                    loginController.signInWithEmail(
+                        _emailController.text, _passwordController.text);
                   },
                   child: Text("Entrar"),
                   style: ElevatedButton.styleFrom(
