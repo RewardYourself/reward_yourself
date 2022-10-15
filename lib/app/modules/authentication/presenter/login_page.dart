@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool continueConnected = false;
+  bool _obscureText = true;
   LoginController loginController;
   _LoginPageState(this.loginController);
 
@@ -36,37 +37,37 @@ class _LoginPageState extends State<LoginPage> {
                   "assets/images/multiTaskGirl.png",
                   alignment: Alignment.center,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/images/Logo.png",
-                      width: 34,
-                      height: 32,
-                    ),
-                    Text(
-                      "Reward  ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'MavenPro',
-                        fontSize: 23,
-                        color: Color(0xFFFDA951),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/Logo.png",
+                        width: 34,
+                        height: 32,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      "Yourself",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'MavenPro',
-                        fontSize: 23,
-                        color: Color(0xFFFDA951),
+                      Text(
+                        "Reward  ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'MavenPro',
+                          fontSize: 23,
+                          color: Color(0xFFFDA951),
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
+                      Text(
+                        "Yourself",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'MavenPro',
+                          fontSize: 23,
+                          color: Color(0xFFFDA951),
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
                 Padding(padding: EdgeInsets.only(bottom: 50)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(padding: EdgeInsets.only(bottom: 10)),
                     TextFormField(
                       controller: _passwordController,
-                      obscureText: true,
+                      obscureText: _obscureText,
                       decoration: InputDecoration(
                           labelText: "Senha",
                           labelStyle: TextStyle(
@@ -157,10 +158,11 @@ class _LoginPageState extends State<LoginPage> {
                               )),
                           suffixIcon: GestureDetector(
                             onTap: () {
-                              print("Visibilidade da senha alterada!");
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
                             },
-                            child: Icon(
-                              Icons.visibility,
+                            child: Icon( _obscureText ?Icons.visibility :Icons.visibility_off,
                               color: Color(0xFFFDA951),
                             ),
                           )),
@@ -203,9 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                     Column(
                       children: [
                         GestureDetector(
-                            onTap: () {
-                              print("Esqueci minha senha!");
-                            },
+                            onTap: () => Modular.to.pushNamed('/forgetPassword'),
                             child: Text(
                               "Esqueci minha senha",
                               textAlign: TextAlign.right,
