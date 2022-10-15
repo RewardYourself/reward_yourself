@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(padding: EdgeInsets.only(bottom: 10)),
                     TextFormField(
                       controller: _passwordController,
-                      obscureText: true,
+                      obscureText: _obscureText,
                       decoration: InputDecoration(
                           labelText: "Senha",
                           labelStyle: TextStyle(
@@ -158,10 +158,11 @@ class _LoginPageState extends State<LoginPage> {
                               )),
                           suffixIcon: GestureDetector(
                             onTap: () {
-                              print("Visibilidade da senha alterada!");
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
                             },
-                            child: Icon(
-                              Icons.visibility,
+                            child: Icon( _obscureText ?Icons.visibility :Icons.visibility_off,
                               color: Color(0xFFFDA951),
                             ),
                           )),
