@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_controller.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/register_page.dart';
+import 'package:reward_yourself/app/modules/authentication/presenter/splash_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/sucess_page.dart';
 
 class AuthenticationModule extends Module {
@@ -14,10 +15,12 @@ class AuthenticationModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute(
       Modular.initialRoute,
-      child: (context, args) => LoginPage(
-        loginController: context.read(),
-      ),
+      child: (context, args) => SplashPage(),
     ),
+    ChildRoute('/login',
+        child: (context, args) => LoginPage(
+              loginController: context.read(),
+            )),
     ChildRoute(
       '/register',
       child: (context, args) => RegisterPage(),
