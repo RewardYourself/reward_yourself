@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:reward_yourself/app/modules/authentication/presenter/forgetPassword_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_controller.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/register_page.dart';
@@ -28,6 +29,10 @@ class AuthenticationModule extends Module {
     ChildRoute(
       '/success',
       child: (context, args) => SuccessPage(),
+    ),
+    ChildRoute(
+      '/forgetPassword',
+      child: (context, args) => ForgetPasswordPage(),
     ),
   ];
 }

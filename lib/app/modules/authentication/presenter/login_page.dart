@@ -205,9 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                     Column(
                       children: [
                         GestureDetector(
-                            onTap: () {
-                              print("Esqueci minha senha!");
-                            },
+                            onTap: () => Modular.to.pushNamed('/forgetPassword'),
                             child: Text(
                               "Esqueci minha senha",
                               textAlign: TextAlign.right,
