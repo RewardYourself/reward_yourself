@@ -22,6 +22,9 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  bool _validateEmail = false;
+  bool _validatePassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,6 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 14,
                       ),
                       decoration: InputDecoration(
+                        errorText: _validateEmail ? 'Campo de email vazio!':null,
                         labelText: "E-mail",
                         labelStyle: TextStyle(
                           color: Colors.black54,
@@ -142,6 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                           labelText: "Senha",
+                          errorText: _validatePassword ? 'Campo de senha vazio!':null,
                           labelStyle: TextStyle(
                             color: Colors.black54,
                             fontFamily: 'Poppins',
@@ -220,8 +225,13 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 20)),
                 ElevatedButton(
-                  onPressed: () => loginController.signInWithEmail(
-                      _emailController.text, _passwordController.text),
+                  onPressed: () {
+                    setState(() {
+                      _emailController.text.isEmpty ? _validateEmail = true : _validateEmail = false;
+                      _passwordController.text.isEmpty ? _validatePassword = true : _validatePassword = false;
+                    });
+                    loginController.signInWithEmail(_emailController.text, _passwordController.text);
+                  },
                   child: Text("Entrar"),
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(200, 56),

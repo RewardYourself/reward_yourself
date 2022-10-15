@@ -44,9 +44,11 @@ class LoginController {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        AsukaSnackbar.warning("Usuário não encontrado");
+        AsukaSnackbar.alert("Usuário não encontrado").show();
       } else if (e.code == 'wrong-password') {
-        AsukaSnackbar.warning("Sua senha está errada");
+        AsukaSnackbar.alert("Sua senha está errada").show();
+      }else if (e.code == 'invalid-email'){
+        AsukaSnackbar.alert("Formato de Email errado").show();
       }
     }
   }
