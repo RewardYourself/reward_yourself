@@ -10,9 +10,15 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  bool _obscureText = true;
+  bool _obscureTextConfirm = true;
+  
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  
+  bool _validatePassword = false;
+   bool _validateConfirmPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +121,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       Padding(padding: EdgeInsets.only(bottom: 10)),
                       TextFormField(
                         controller: _passwordController,
+                        obscureText: _obscureText,
                         autofocus: true,
-                        obscureText: true,
                         decoration: InputDecoration(
                             labelText: "Senha",
+                            errorText: _validatePassword
+                              ? 'Campo de senha vazio!'
+                              : null,
                             labelStyle: TextStyle(
                               color: Colors.black54,
                               fontFamily: 'Poppins',
@@ -135,11 +144,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                 )),
                             suffixIcon: GestureDetector(
                               onTap: () {
-                                print("Visibilidade da senha alterada!");
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
                               },
                               child: Icon(
-                                Icons.visibility,
-                                color: Color(0xFFFDA951),
+                               _obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Color(0xFFFDA951),
                               ),
                             )),
                       ),
@@ -147,9 +160,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       TextFormField(
                         controller: _confirmPasswordController,
                         autofocus: true,
-                        obscureText: true,
+                        obscureText: _obscureTextConfirm,
                         decoration: InputDecoration(
                             labelText: "Confirmar senha",
+                             errorText: _validateConfirmPassword
+                              ? 'Campo de senha vazio!'
+                              : null,
                             labelStyle: TextStyle(
                               color: Colors.black54,
                               fontFamily: 'Poppins',
@@ -166,10 +182,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                 )),
                             suffixIcon: GestureDetector(
                               onTap: () {
-                                print("Visibilidade da senha alterada!");
+                                 setState(() {
+                                  _obscureTextConfirm = !_obscureTextConfirm;
+                                });
                               },
                               child: Icon(
-                                Icons.visibility,
+                                 _obscureTextConfirm
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                                 color: Color(0xFFFDA951),
                               ),
                             )),
