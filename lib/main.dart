@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:reward_yourself/app/app_module.dart';
@@ -10,7 +11,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // ignore: invalid_use_of_visible_for_testing_member
   SharedPreferences.setMockInitialValues({});
-
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
