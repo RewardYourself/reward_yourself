@@ -1,17 +1,17 @@
 class TaskModel {
   final String user;
   final String title;
-  final double duration;
+  final double? duration;
   final int cost;
-  final String description;
+  final String? description;
   final bool permanent;
 
   TaskModel({
     required this.user,
     required this.title,
-    required this.duration,
+    this.duration,
     required this.cost,
-    this.description = "",
+    this.description,
     required this.permanent,
   });
 
