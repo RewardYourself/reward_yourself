@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:reward_yourself/app/modules/create_tasks/create_task_controller.dart';
 import 'package:reward_yourself/app/modules/create_tasks/models/task_model.dart';
+import 'package:reward_yourself/components/text_field.dart';
 
 class CreateTaskPage extends StatefulWidget {
   const CreateTaskPage({Key? key, required this.createTaskController})
@@ -82,8 +83,9 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                     ),
                   ],
                 ),
-                TextFormField(
+                CustomTextField(
                   textInputAction: TextInputAction.next,
+                  label: "Tarefa*",
                   controller: _titleController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -91,65 +93,25 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                     }
                     return null;
                   },
-                  style: const TextStyle(
-                    color: Colors.black54,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  decoration: InputDecoration(
-                      labelText: "Tarefa*",
-                      labelStyle: const TextStyle(
-                        color: Colors.black54,
-                        fontFamily: 'Poppins',
-                        fontSize: 14,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: const BorderSide(
-                            width: 2,
-                            color: Color(0xFFFDA951),
-                          ))),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
+                CustomTextField(
                   textInputAction: TextInputAction.next,
+                  label: "Tempo (hora)",
                   controller: _durationController,
+                  keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow((RegExp("[.0-9]"))),
                   ],
-                  keyboardType: TextInputType.number,
-                  style: const TextStyle(
-                    color: Colors.black54,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  decoration: InputDecoration(
-                      labelText: "Tempo (hora)",
-                      labelStyle: const TextStyle(
-                        color: Colors.black54,
-                        fontFamily: 'Poppins',
-                        fontSize: 14,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: const BorderSide(
-                            width: 2,
-                            color: Color(0xFFFDA951),
-                          ))),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
+                CustomTextField(
                   textInputAction: TextInputAction.next,
+                  label: "Custo*",
                   controller: _costController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
@@ -161,55 +123,16 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                     }
                     return null;
                   },
-                  style: const TextStyle(
-                    color: Colors.black54,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  decoration: InputDecoration(
-                      labelText: "Custo*",
-                      labelStyle: const TextStyle(
-                        color: Colors.black54,
-                        fontFamily: 'Poppins',
-                        fontSize: 14,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: const BorderSide(
-                            width: 2,
-                            color: Color(0xFFFDA951),
-                          ))),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
+                CustomTextField(
                   textInputAction: TextInputAction.done,
+                  label: "Descrição",
                   controller: _descriptionController,
-                  style: const TextStyle(
-                    color: Colors.black54,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  decoration: InputDecoration(
-                      labelText: "Descrição",
-                      labelStyle: const TextStyle(
-                        color: Colors.black54,
-                        fontFamily: 'Poppins',
-                        fontSize: 14,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: const BorderSide(
-                            width: 2,
-                            color: Color(0xFFFDA951),
-                          ))),
+                  minLines: 3,
+                  maxLines: 5,
                 ),
                 const SizedBox(
                   height: 16,
