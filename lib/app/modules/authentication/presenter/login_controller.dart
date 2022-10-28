@@ -37,18 +37,18 @@ class LoginController {
 
   signInWithEmail(emailAddress, password) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: emailAddress, password: password);
-      if (credential != null) {
-        Modular.to.navigate('/home');
-      }
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailAddress, 
+        password: password
+      );
+      Modular.to.navigate('/home');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         AsukaSnackbar.alert("Usuário não encontrado").show();
       } else if (e.code == 'wrong-password') {
         AsukaSnackbar.alert("Sua senha está errada").show();
-      }else if (e.code == 'invalid-email'){
-        AsukaSnackbar.alert("Formato de Email errado").show();
+      } else if (e.code == 'invalid-email'){
+        AsukaSnackbar.alert("Formato de e-mail inválido").show();
       }
     }
   }
