@@ -47,7 +47,7 @@ class LoginController {
         AsukaSnackbar.alert("Usuário não encontrado").show();
       } else if (e.code == 'wrong-password') {
         AsukaSnackbar.alert("Sua senha está errada").show();
-      } else if (e.code == 'invalid-email'){
+      } else if (e.code == 'invalid-email') {
         AsukaSnackbar.alert("Formato de e-mail inválido").show();
       }
     }

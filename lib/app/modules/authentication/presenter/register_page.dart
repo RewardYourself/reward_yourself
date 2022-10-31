@@ -18,6 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _obscureText = true;
   bool _obscureTextConfirm = true;
   
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -95,6 +96,38 @@ class _RegisterPageState extends State<RegisterPage> {
                   Form(
                       child: Column(
                     children: [
+                      TextFormField(
+                        controller: _nameController,
+                        keyboardType: TextInputType.name,
+                        autofocus: true,
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                        ),
+                        decoration: InputDecoration(
+                          labelText: "Nome",
+                          errorText:
+                            _validateEmail ? 'Campo de nome vazio!' : null,
+                          labelStyle: TextStyle(
+                            color: Colors.black54,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: Color(0xFFFDA951),
+                              )),
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.only(bottom: 10)),
                       TextFormField(
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -206,6 +239,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
+                        _nameController.text.isEmpty
+                          ? _validateEmail = true
+                          : _validateEmail = false;
                         _emailController.text.isEmpty
                           ? _validateEmail = true
                           : _validateEmail = false;
@@ -217,6 +253,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           : _validateConfirmPassword = false;
                       });
                       registerController.register(
+                        _nameController.text,
                         _emailController.text, 
                         _passwordController.text, 
                         _confirmPasswordController.text

@@ -3,16 +3,23 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:asuka/snackbars/asuka_snack_bar.dart';
 
 class RegisterController {
-  register(emailAddress, password, confirmPassword) async {
+  register(userName, emailAddress, password, confirmPassword) async {
     if (password != confirmPassword) {
       AsukaSnackbar.alert("As senhas não coincidem").show();
     }
     else {
       try {
+        // set login - email and password
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailAddress,
           password: password,
         );
+        
+        // set user name
+        if (FirebaseAuth.instance.currentUser != null) {
+          FirebaseAuth.instance.currentUser?.updateDisplayName(userName);
+        }
+
         Modular.to.navigate('/success');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
