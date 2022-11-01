@@ -55,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.symmetric(horizontal: 40),
           child: SingleChildScrollView(
             child: Column(

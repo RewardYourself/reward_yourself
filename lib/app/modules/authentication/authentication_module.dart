@@ -6,14 +6,13 @@ import 'package:reward_yourself/app/modules/authentication/presenter/register_pa
 import 'package:reward_yourself/app/modules/authentication/presenter/register_controller.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/splash_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/success_page.dart';
-import 'package:reward_yourself/app/modules/authentication/presenter/success_controller.dart';
+import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
 
 class AuthenticationModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.lazySingleton((i) => LoginController()),
     Bind.lazySingleton((i) => RegisterController()),
-    Bind.lazySingleton((i) => SuccessController())
   ];
 
   @override
@@ -35,9 +34,7 @@ class AuthenticationModule extends Module {
     ),
     ChildRoute(
       '/success',
-      child: (context, args) => SuccessPage(
-        successController: context.read(),
-      ),
+      child: (context, args) => SuccessPage(),
     ),
     ChildRoute(
       '/forgetPassword',
