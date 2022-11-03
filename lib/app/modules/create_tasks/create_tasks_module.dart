@@ -8,9 +8,10 @@ class CreateTasksModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute("/",
-        child: (context, args) => CreateTaskPage(
-              createTaskController: context.read(),
-            ))
+    ChildRoute(
+      "/",
+      child: (context, args) => CreateTaskPage(
+        createTaskController: context.read(),
+      ))
   ];
 }

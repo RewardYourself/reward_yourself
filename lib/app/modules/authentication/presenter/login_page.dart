@@ -15,10 +15,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool continueConnected = false;
-  bool _obscureText = true;
   LoginController loginController;
   _LoginPageState(this.loginController);
+  
+  bool continueConnected = false;
+  bool _obscureText = true;
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -34,16 +35,16 @@ class _LoginPageState extends State<LoginPage> {
 
   void _loadUserEmailPassword() async {
     try {
-      SharedPreferences _prefs = await SharedPreferences.getInstance();
-      var _email = _prefs.getString("email") ?? "";
-      var _password = _prefs.getString("password") ?? "";
-      var _rememberMe = _prefs.getBool("remember_me") ?? false;
-      if (_rememberMe) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var email = prefs.getString("email") ?? "";
+      var password = prefs.getString("password") ?? "";
+      var rememberMe = prefs.getBool("remember_me") ?? false;
+      if (rememberMe) {
         setState(() {
           continueConnected = true;
         });
-        _emailController.text = _email ?? "";
-        _passwordController.text = _password ?? "";
+        _emailController.text = email;
+        _passwordController.text = password;
       }
     } catch (e) {
       print(e);
@@ -54,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.symmetric(horizontal: 40),
           child: SingleChildScrollView(
             child: Column(
@@ -148,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       decoration: InputDecoration(
                         errorText:
-                            _validateEmail ? 'Campo de email vazio!' : null,
+                            _validateEmail ? 'Campo de e-mail vazio!' : null,
                         labelText: "E-mail",
                         labelStyle: TextStyle(
                           color: Colors.black54,
@@ -269,16 +269,15 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     setState(() {
                       _emailController.text.isEmpty
-                          ? _validateEmail = true
-                          : _validateEmail = false;
+                        ? _validateEmail = true
+                        : _validateEmail = false;
                       _passwordController.text.isEmpty
-                          ? _validatePassword = true
-                          : _validatePassword = false;
+                        ? _validatePassword = true
+                        : _validatePassword = false;
                     });
                     loginController.signInWithEmail(
                         _emailController.text, _passwordController.text);
                   },
-                  child: Text("Entrar"),
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(200, 56),
                     backgroundColor: Color(0xFFFDA951),
@@ -287,6 +286,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.w600,
                         fontSize: 16),
                   ),
+                  child: Text("Entrar"),
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 35)),
                 Container(
@@ -297,23 +297,23 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       ElevatedButton(
                         onPressed: loginController.signInWithGoogle,
-                        child: Image.asset("assets/images/googleIcon.png"),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(70, 41),
                           backgroundColor: Colors.white,
                           textStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
+                        child: Image.asset("assets/images/googleIcon.png"),
                       ),
                       ElevatedButton(
                         onPressed: loginController.signInWithFacebook,
-                        child: Image.asset("assets/images/facebookIcon.png"),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(70, 41),
                           backgroundColor: Colors.white,
                           textStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
+                        child: Image.asset("assets/images/facebookIcon.png"),
                       ),
                     ],
                   ),

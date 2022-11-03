@@ -1,24 +1,31 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/register_controller.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({Key? key, required this.registerController}) : super(key: key);
+
+  final RegisterController registerController;
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegisterPage> createState() => _RegisterPageState(registerController);
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  RegisterController registerController;
+  _RegisterPageState(this.registerController);
+
   bool _obscureText = true;
   bool _obscureTextConfirm = true;
   
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   
+  bool _validateEmail = false;
   bool _validatePassword = false;
-   bool _validateConfirmPassword = false;
+  bool _validateConfirmPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +97,38 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Column(
                     children: [
                       TextFormField(
+                        controller: _nameController,
+                        keyboardType: TextInputType.name,
+                        autofocus: true,
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                        ),
+                        decoration: InputDecoration(
+                          labelText: "Nome",
+                          errorText:
+                            _validateEmail ? 'Campo de nome vazio!' : null,
+                          labelStyle: TextStyle(
+                            color: Colors.black54,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: Color(0xFFFDA951),
+                              )),
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.only(bottom: 10)),
+                      TextFormField(
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         autofocus: true,
@@ -100,7 +139,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           fontSize: 14,
                         ),
                         decoration: InputDecoration(
-                          labelText: "Email",
+                          labelText: "E-mail",
+                          errorText:
+                            _validateEmail ? 'Campo de e-mail vazio!' : null,
                           labelStyle: TextStyle(
                             color: Colors.black54,
                             fontFamily: 'Poppins',
@@ -125,9 +166,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         autofocus: true,
                         decoration: InputDecoration(
                             labelText: "Senha",
-                            errorText: _validatePassword
-                              ? 'Campo de senha vazio!'
-                              : null,
+                            errorText: 
+                              _validatePassword ? 'Campo de senha vazio!' : null,
                             labelStyle: TextStyle(
                               color: Colors.black54,
                               fontFamily: 'Poppins',
@@ -163,9 +203,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: _obscureTextConfirm,
                         decoration: InputDecoration(
                             labelText: "Confirmar senha",
-                             errorText: _validateConfirmPassword
-                              ? 'Campo de senha vazio!'
-                              : null,
+                            errorText: 
+                              _validateConfirmPassword ? 'Confirme sua senha!' : null,
                             labelStyle: TextStyle(
                               color: Colors.black54,
                               fontFamily: 'Poppins',
@@ -198,9 +237,28 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   )),
                   ElevatedButton(
-                    onPressed: () => register(
-                        _emailController.text, _passwordController.text),
-                    child: Text("Cadastrar"),
+                    onPressed: () {
+                      setState(() {
+                        _nameController.text.isEmpty
+                          ? _validateEmail = true
+                          : _validateEmail = false;
+                        _emailController.text.isEmpty
+                          ? _validateEmail = true
+                          : _validateEmail = false;
+                        _passwordController.text.isEmpty
+                          ? _validatePassword = true
+                          : _validatePassword = false;
+                        _confirmPasswordController.text.isEmpty
+                          ? _validateConfirmPassword = true
+                          : _validateConfirmPassword = false;
+                      });
+                      registerController.register(
+                        _nameController.text,
+                        _emailController.text, 
+                        _passwordController.text, 
+                        _confirmPasswordController.text
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       fixedSize: Size(200, 56),
                       backgroundColor: Color(0xFFFDA951),
@@ -209,6 +267,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           fontFamily: 'Archivo',
                           fontSize: 16),
                     ),
+                    child: Text("Cadastrar"),
                   ),
                 ]))));
   }

@@ -1,20 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key, required this.homeController}) : super(key: key);
+
+  final HomeController homeController;
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState(homeController);
 }
 
 class _HomePageState extends State<HomePage> {
+  HomeController homeController;
+  _HomePageState(this.homeController);
+  
+  String userName = '';
+  String textUser = '';
+
   @override
   Widget build(BuildContext context) {
+    if (homeController.getUserName() != null) {
+      userName = homeController.getUserName().toString();
+      textUser = 'Bem vindo, $userName';
+    }
+    else {
+      textUser = 'Bem-vindo!';
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: Text(textUser),
         backgroundColor: Color(0xFFFDA951),
         actions: [
           TextButton(
@@ -29,14 +46,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Column(children: [
-        Padding(padding: EdgeInsets.only(bottom: 50),),
-        Text(
-          "Reward Yourself",
-          textScaleFactor: 5,
-          textAlign: TextAlign.center,
-        ),
-      ])
+      body: Column(
+        children: [
+          Padding(padding: EdgeInsets.only(bottom: 50),),
+          Text(
+            "Reward Yourself",
+            textScaleFactor: 5,
+            textAlign: TextAlign.center,
+          ),
+        ]
+      )
     );
   }
 }
