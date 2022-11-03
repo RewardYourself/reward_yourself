@@ -17,7 +17,7 @@ class RegisterController {
         
         // set user name
         if (FirebaseAuth.instance.currentUser != null) {
-          FirebaseAuth.instance.currentUser?.updateDisplayName(userName);
+          await FirebaseAuth.instance.currentUser?.updateDisplayName(userName);
         }
 
         Modular.to.navigate('/success');
