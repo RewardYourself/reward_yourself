@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class SuccessPage extends StatefulWidget {
   const SuccessPage({Key? key}) : super(key: key);
@@ -8,7 +9,19 @@ class SuccessPage extends StatefulWidget {
   State<SuccessPage> createState() => _SuccessPageState();
 }
 
-class _SuccessPageState extends State<SuccessPage> {
+class _SuccessPageState extends State<SuccessPage> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1000));
+    _animation = CurvedAnimation(parent: _animationController, curve: Curves.bounceOut, reverseCurve: Curves.bounceIn);
+    _animationController.forward();
+    super.initState();
+    Future.delayed(Duration(seconds: 3)).then((_) => Modular.to.navigate('/home'));
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
