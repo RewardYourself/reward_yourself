@@ -9,20 +9,17 @@ class HomePage extends StatefulWidget {
   final HomeController homeController;
 
   @override
-  State<HomePage> createState() => _HomePageState(homeController);
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  HomeController homeController;
-  _HomePageState(this.homeController);
-  
   String userName = '';
   String textUser = '';
 
   @override
   Widget build(BuildContext context) {
-    if (homeController.getUserName() != null) {
-      userName = homeController.getUserName().toString();
+    if (widget.homeController.getUserName() != null) {
+      userName = widget.homeController.getUserName().toString();
       textUser = 'Bem vindo, $userName';
     }
     else {

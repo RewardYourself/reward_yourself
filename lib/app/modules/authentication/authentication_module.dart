@@ -1,12 +1,11 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:reward_yourself/app/modules/authentication/presenter/forgetPassword_page.dart';
+import 'package:reward_yourself/app/modules/authentication/presenter/forget_password_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_controller.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/login_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/register_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/register_controller.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/splash_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/success_page.dart';
-import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
 
 class AuthenticationModule extends Module {
   @override
@@ -25,7 +24,8 @@ class AuthenticationModule extends Module {
       '/login',
       child: (context, args) => LoginPage(
         loginController: context.read(),
-      )),
+      )
+    ),
     ChildRoute(
       '/register',
       child: (context, args) => RegisterPage(

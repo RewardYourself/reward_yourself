@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reward_yourself/app/modules/create_tasks/create_task_controller.dart';
-import 'package:reward_yourself/app/modules/create_tasks/models/task_model.dart';
+import 'package:reward_yourself/app/modules/tasks/presenter/create_task_controller.dart';
+import 'package:reward_yourself/app/modules/tasks/models/task_model.dart';
 import 'package:reward_yourself/components/text_field.dart';
 
 class CreateTaskPage extends StatefulWidget {
@@ -57,7 +57,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Adicionar Recompensas",
+                  "Adicionar Tarefas",
                   style: TextStyle(
                     fontFamily: "Archivo",
                     fontSize: 20,
