@@ -40,32 +40,28 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(250),
-        child: AppBar(
-          centerTitle: true,
-          title: Text(
-            textUser,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontFamily: 'MavenPro',
-              fontSize: 16,
-              color: Color(0xFFFDA951),
-            ),
-          ),
-          backgroundColor: Color.fromRGBO(255, 250, 244, 1),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/multiTaskGirl.png"))),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          textUser,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontFamily: 'MavenPro',
+            fontSize: 16,
+            color: Color(0xFFFDA951),
           ),
         ),
+        backgroundColor: Color.fromRGBO(255, 250, 244, 1),
+        elevation: 0,
       ),
-      body: Column(children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: 50),
-        ),
-      ]),
+      body: Column(
+        children: [
+          Center(child: Image.asset("assets/images/multiTaskGirl.png")),
+          Padding(
+            padding: EdgeInsets.only(bottom: 50),
+          ),
+        ],
+      ),
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
