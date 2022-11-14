@@ -20,9 +20,10 @@ class TasksModule extends Module {
       )
     ),
     ChildRoute(
-      "/edit/",
+      "/edit/:id",
       child: (context, args) => EditTaskPage(
         editTaskController: context.read(),
+        id: args.params['id']
       )
     ),
   ];

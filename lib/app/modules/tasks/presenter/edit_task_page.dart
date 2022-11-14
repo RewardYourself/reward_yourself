@@ -6,10 +6,15 @@ import 'package:reward_yourself/app/modules/tasks/models/task_model.dart';
 import 'package:reward_yourself/components/text_field.dart';
 
 class EditTaskPage extends StatefulWidget {
-  const EditTaskPage({Key? key, required this.editTaskController})
+  const EditTaskPage({
+    Key? key,
+    required this.editTaskController,
+    required this.id,
+  })
       : super(key: key);
 
   final EditTaskController editTaskController;
+  final String? id;
 
   @override
   State<EditTaskPage> createState() => _EditTaskPageState();
@@ -154,7 +159,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                               permanent: permanent,
                               description: _descriptionController.text,
                             );
-                            widget.editTaskController.editTask();
+                            widget.editTaskController.editTask(taskModel, widget.id);
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -165,7 +170,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                               fontWeight: FontWeight.w600,
                               fontSize: 16),
                         ),
-                        child: const Text("Adicionar"),
+                        child: const Text("Editar"),
                       ),
                     ),
                   ],
