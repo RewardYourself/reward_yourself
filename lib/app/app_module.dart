@@ -13,6 +13,7 @@ class AppModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ModuleRoute(Modular.initialRoute, module: AuthenticationModule()),
-    ModuleRoute("/home", module: HomeModule())
+    ModuleRoute("/home", module: HomeModule()),
+    ModuleRoute("/addTask", module: CreateTasksModule())
   ];
 }
