@@ -21,7 +21,13 @@ class _SuccessPageState extends State<SuccessPage> with SingleTickerProviderStat
     super.initState();
     Future.delayed(Duration(seconds: 3)).then((_) => Modular.to.navigate('/home'));
   }
-  
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +85,7 @@ class _SuccessPageState extends State<SuccessPage> with SingleTickerProviderStat
               ],
             )
           )
-          
+
         )
       )
     );

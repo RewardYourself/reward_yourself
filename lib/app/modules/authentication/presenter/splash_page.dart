@@ -7,7 +7,7 @@ class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
   @override
-  _SplashPageState createState() => _SplashPageState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     _animation = CurvedAnimation(parent: _animationController, curve: Curves.bounceOut, reverseCurve: Curves.bounceIn);
     _animationController.forward();
     super.initState();
-    Future.delayed(Duration(seconds: 3)).then((_) => Modular.to.pushNamed('/login'));
+    Future.delayed(Duration(seconds: 3)).then((_) => Modular.to.navigate('/login'));
   }
 
   @override
