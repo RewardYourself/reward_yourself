@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class AuthService {
   AuthService() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('User is currently signed out!');
+        Modular.to.navigate("/login");
       } else {
-        print('User is signed in!');
+        Modular.to.navigate("/home");
       }
     });
   }
