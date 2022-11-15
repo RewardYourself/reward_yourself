@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
@@ -13,6 +14,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    widget.homeController.getTasks();
+    super.initState();
+  }
+
   String userName = '';
   String textUser = '';
   String greetings = '';
@@ -42,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         title: Text(
           textUser,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w600,
             fontFamily: 'MavenPro',
             fontSize: 16,
@@ -52,21 +59,21 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
               onPressed: () {},
-              icon:
-                  Icon(Icons.notifications_outlined, color: Color(0xFFFDA951)))
+              icon: const Icon(Icons.notifications_outlined,
+                  color: Color(0xFFFDA951)))
         ],
         leading: Image.asset(
           "assets/images/Logo.png",
           width: 50,
           height: 50,
         ),
-        backgroundColor: Color.fromRGBO(255, 250, 244, 1),
+        backgroundColor: const Color.fromRGBO(255, 250, 244, 1),
         elevation: 0,
       ),
       body: Column(
         children: [
           Container(
-            color: Color.fromARGB(121, 255, 242, 229),
+            color: const Color.fromARGB(121, 255, 242, 229),
             child: Align(
               alignment: Alignment.center,
               child: Image.asset("assets/images/multiTaskGirl.png"),
@@ -75,21 +82,21 @@ class _HomePageState extends State<HomePage> {
           Align(
             alignment: Alignment.topRight,
             child: FloatingActionButton(
-              backgroundColor: Color.fromRGBO(242, 242, 242, 1),
-              foregroundColor: Color(0xFFFDA951),
+              backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
+              foregroundColor: const Color(0xFFFDA951),
               tooltip: "Adicionar Tarefas",
               onPressed: () {
                 Modular.to.pushNamed('/addTask');
               },
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             ),
           ),
           Container(
-            color: Color.fromARGB(121, 255, 242, 229),
+            color: const Color.fromARGB(121, 255, 242, 229),
             child: Row(
               children: [
                 Image.asset('assets/images/money.png'),
-                Text(
+                const Text(
                   "50",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -104,13 +111,13 @@ class _HomePageState extends State<HomePage> {
           Container(
             child: Row(
               children: [
-                Text("Suas ",
-                    style: const TextStyle(
+                const Text("Suas ",
+                    style: TextStyle(
                         fontFamily: 'MavenPro',
                         fontSize: 16,
                         color: Color.fromRGBO(143, 143, 143, 1))),
-                Text("Tarefas",
-                    style: const TextStyle(
+                const Text("Tarefas",
+                    style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontFamily: 'MavenPro',
                         fontSize: 16,
@@ -118,12 +125,68 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          Observer(
+            builder: (context) {
+              return Expanded(
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: widget.homeController.tasks.length,
+                    itemBuilder: (context, index) {
+                      final task = widget.homeController.tasks[index];
+                      if (widget.homeController.isLoading) {
+                        return const CircularProgressIndicator();
+                      }
+
+                      return Card(
+                        child: ListTile(
+                          minVerticalPadding: 16,
+                          leading: CircleAvatar(
+                            backgroundColor: Color(0xFFfbac53),
+                            foregroundColor: Colors.black,
+                            child: IconButton(
+                              icon: const Icon(
+                                Icons.done,
+                                size: 24,
+                              ),
+                              onPressed: (() {
+                                //TODO: Call controller to finish task
+                              }),
+                            ),
+                          ),
+                          title: Text(task.title),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(task.description ?? ""),
+                              Text(
+                                "Duração: ${task.duration.toString()} hora",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset("assets/images/coin.png"),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text(task.cost.toString()),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+              );
+            },
+          )
         ],
       ),
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromRGBO(246, 246, 246, 1),
+          backgroundColor: const Color.fromRGBO(246, 246, 246, 1),
           onPressed: () {},
           child: Image.asset(
             "assets/images/Trophy.png",
@@ -132,9 +195,9 @@ class _HomePageState extends State<HomePage> {
           )),
       bottomNavigationBar: BottomAppBar(
           shape: const CircularNotchedRectangle(),
-          color: Color.fromRGBO(246, 246, 246, 1),
+          color: const Color.fromRGBO(246, 246, 246, 1),
           child: IconTheme(
-              data: IconThemeData(color: Color(0xFFFDA951)),
+              data: const IconThemeData(color: Color(0xFFFDA951)),
               child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
@@ -145,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                         iconSize: 25,
                         onPressed: () {},
                       ),
-                      SizedBox(width: 24),
+                      const SizedBox(width: 24),
                       IconButton(
                         icon: Image.asset('assets/images/person.png'),
                         iconSize: 25,

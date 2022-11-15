@@ -19,7 +19,7 @@ class TaskModel {
     return TaskModel(
       user: json['user'],
       title: json['title'],
-      duration: json['duration'],
+      duration: json['duration'] + .0,
       cost: json['cost'],
       description: json['description'],
       permanent: json['permanent'],
