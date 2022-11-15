@@ -50,7 +50,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/Logo.png",
+                      "assets/images/logo.png",
                       width: 34,
                       height: 32,
                     ),

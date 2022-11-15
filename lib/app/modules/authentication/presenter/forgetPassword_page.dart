@@ -33,7 +33,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/Logo.png",
+                      "assets/images/logo.png",
                       width: 34,
                       height: 32,
                     ),
