@@ -14,7 +14,7 @@ class RegisterController {
           email: emailAddress,
           password: password,
         );
-        
+
         // set user name
         if (FirebaseAuth.instance.currentUser != null) {
           await FirebaseAuth.instance.currentUser?.updateDisplayName(userName);

@@ -8,13 +8,10 @@ class RegisterPage extends StatefulWidget {
   final RegisterController registerController;
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState(registerController);
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  RegisterController registerController;
-  _RegisterPageState(this.registerController);
-
   bool _obscureText = true;
   bool _obscureTextConfirm = true;
   
@@ -252,7 +249,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ? _validateConfirmPassword = true
                           : _validateConfirmPassword = false;
                       });
-                      registerController.register(
+                      widget.registerController.register(
                         _nameController.text,
                         _emailController.text, 
                         _passwordController.text, 

@@ -38,10 +38,10 @@ class LoginController {
   signInWithEmail(emailAddress, password) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailAddress, 
+        email: emailAddress,
         password: password
       );
-      Modular.to.navigate('/home');
+      Modular.to.navigate('/home/');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         AsukaSnackbar.alert("Usuário não encontrado").show();

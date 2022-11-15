@@ -6,17 +6,16 @@ import 'package:reward_yourself/app/modules/authentication/presenter/login_contr
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.loginController}) : super(key: key);
+  const LoginPage({Key? key, required this.loginController})
+      : super(key: key);
 
   final LoginController loginController;
 
   @override
-  State<LoginPage> createState() => _LoginPageState(loginController);
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  LoginController loginController;
-  _LoginPageState(this.loginController);
   
   bool continueConnected = false;
   bool _obscureText = true;
@@ -275,7 +274,7 @@ class _LoginPageState extends State<LoginPage> {
                         ? _validatePassword = true
                         : _validatePassword = false;
                     });
-                    loginController.signInWithEmail(
+                    widget.loginController.signInWithEmail(
                         _emailController.text, _passwordController.text);
                   },
                   style: ElevatedButton.styleFrom(
@@ -296,7 +295,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
-                        onPressed: loginController.signInWithGoogle,
+                        onPressed: widget.loginController.signInWithGoogle,
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(70, 41),
                           backgroundColor: Colors.white,
@@ -306,7 +305,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Image.asset("assets/images/googleIcon.png"),
                       ),
                       ElevatedButton(
-                        onPressed: loginController.signInWithFacebook,
+                        onPressed: widget.loginController.signInWithFacebook,
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(70, 41),
                           backgroundColor: Colors.white,
