@@ -1,26 +1,46 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reward_yourself/app/modules/create_tasks/create_task_controller.dart';
-import 'package:reward_yourself/app/modules/create_tasks/models/task_model.dart';
+import 'package:reward_yourself/app/modules/tasks/presenter/edit_task_controller.dart';
+import 'package:reward_yourself/app/modules/tasks/models/task_model.dart';
 import 'package:reward_yourself/components/text_field.dart';
 
-class CreateTaskPage extends StatefulWidget {
-  const CreateTaskPage({Key? key, required this.createTaskController})
+class EditTaskPage extends StatefulWidget {
+  const EditTaskPage({
+    Key? key,
+    required this.editTaskController,
+    required this.id,
+  })
       : super(key: key);
-  final CreateTaskController createTaskController;
+
+  final EditTaskController editTaskController;
+  final String? id;
 
   @override
-  State<CreateTaskPage> createState() => _CreateTaskPageState();
+  State<EditTaskPage> createState() => _EditTaskPageState();
 }
 
-class _CreateTaskPageState extends State<CreateTaskPage> {
+class _EditTaskPageState extends State<EditTaskPage> {
   final _titleController = TextEditingController();
   final _durationController = TextEditingController();
   final _costController = TextEditingController();
   final _descriptionController = TextEditingController();
   bool permanent = false;
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    loadTask();
+  }
+
+  void loadTask() async {
+    TaskModel task = await widget.editTaskController.getTask(widget.id);
+    _titleController.text = task.title;
+    _durationController.text = task.duration.toString();
+    _costController.text = task.cost.toString();
+    _descriptionController.text = task.description.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +77,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Adicionar Recompensas",
+                  "Editar Tarefa",
                   style: TextStyle(
                     fontFamily: "Archivo",
                     fontSize: 20,
@@ -153,7 +173,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                               permanent: permanent,
                               description: _descriptionController.text,
                             );
-                            widget.createTaskController.createTask(taskModel);
+                            widget.editTaskController.editTask(taskModel, widget.id);
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -164,7 +184,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                               fontWeight: FontWeight.w600,
                               fontSize: 16),
                         ),
-                        child: const Text("Adicionar"),
+                        child: const Text("Editar"),
                       ),
                     ),
                   ],
