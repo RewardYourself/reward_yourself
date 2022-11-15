@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -137,43 +138,57 @@ class _HomePageState extends State<HomePage> {
                         return const CircularProgressIndicator();
                       }
 
-                      return Card(
-                        child: ListTile(
-                          minVerticalPadding: 16,
-                          leading: CircleAvatar(
+                      return Slidable(
+                        endActionPane:
+                            ActionPane(motion: const ScrollMotion(), children: [
+                          SlidableAction(
+                            onPressed: (_) {
+                              //TODO: Navigate do Edit
+                            },
                             backgroundColor: Color(0xFFfbac53),
-                            foregroundColor: Colors.black,
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.done,
-                                size: 24,
+                            foregroundColor: Colors.white,
+                            icon: Icons.edit,
+                            label: 'Editar',
+                          ),
+                        ]),
+                        child: Card(
+                          child: ListTile(
+                            minVerticalPadding: 16,
+                            leading: CircleAvatar(
+                              backgroundColor: Color(0xFFfbac53),
+                              foregroundColor: Colors.black,
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.done,
+                                  size: 24,
+                                ),
+                                onPressed: (() {
+                                  //TODO: Call controller to finish task
+                                }),
                               ),
-                              onPressed: (() {
-                                //TODO: Call controller to finish task
-                              }),
                             ),
-                          ),
-                          title: Text(task.title),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(task.description ?? ""),
-                              Text(
-                                "Duração: ${task.duration.toString()} hora",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ],
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset("assets/images/coin.png"),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Text(task.cost.toString()),
-                            ],
+                            title: Text(task.title),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(task.description ?? ""),
+                                Text(
+                                  "Duração: ${task.duration.toString()} hora",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset("assets/images/coin.png"),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(task.cost.toString()),
+                              ],
+                            ),
                           ),
                         ),
                       );
