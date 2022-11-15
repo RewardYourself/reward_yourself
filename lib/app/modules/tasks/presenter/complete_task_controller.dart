@@ -1,7 +1,9 @@
 import 'package:asuka/snackbars/asuka_snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:reward_yourself/app/modules/userWallet/user_wallet_controller.dart';
 
 class CompleteTaskController {
+  UserWalletController userWalletController = UserWalletController();
   Future<void> completeTask(item) async {
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection("tasks").doc(item);
@@ -12,6 +14,11 @@ class CompleteTaskController {
       documentReference.delete().whenComplete(
           () => {AsukaSnackbar.success("Tarefa concluida!").show()});
     }
-    AsukaSnackbar.success("Você ganhou " + snapshot["cost"].toString() + " moedas!!").show();
+
+    userWalletController.addSaldo(snapshot["cost"].toString());
+
+    AsukaSnackbar.success(
+            "Você ganhou " + snapshot["cost"].toString() + " moedas!!")
+        .show();
   }
 }
