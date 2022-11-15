@@ -4,11 +4,18 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
+import 'package:reward_yourself/app/modules/tasks/presenter/complete_task_controller.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.homeController}) : super(key: key);
+  const HomePage(
+      {Key? key,
+      required this.homeController,
+      required this.completeTaskController})
+      : super(key: key);
 
   final HomeController homeController;
+
+  final CompleteTaskController completeTaskController;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -178,7 +185,8 @@ class _HomePageState extends State<HomePage> {
                                             size: 24,
                                           ),
                                           onPressed: (() {
-                                            //TODO: Call controller to finish task
+                                            widget.completeTaskController
+                                                .completeTask(task.title);
                                           }),
                                         ),
                                       ),
