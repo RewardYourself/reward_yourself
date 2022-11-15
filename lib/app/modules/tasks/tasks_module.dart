@@ -13,18 +13,12 @@ class TasksModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(
-      "/create/",
-      child: (context, args) => CreateTaskPage(
-        createTaskController: context.read(),
-      )
-    ),
-    ChildRoute(
-      "/edit/:id",
-      child: (context, args) => EditTaskPage(
-        editTaskController: context.read(),
-        id: args.params['id']
-      )
-    ),
+    ChildRoute("/create",
+        child: (context, args) => CreateTaskPage(
+              createTaskController: context.read(),
+            )),
+    ChildRoute("/edit/:id",
+        child: (context, args) => EditTaskPage(
+            editTaskController: context.read(), id: args.params['id'])),
   ];
 }

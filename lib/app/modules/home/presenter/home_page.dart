@@ -226,7 +226,9 @@ class _HomePageState extends State<HomePage> {
             foregroundColor: const Color(0xFFFDA951),
             tooltip: "Adicionar Tarefas",
             onPressed: () {
-              Modular.to.pushNamed('/addTask');
+              Modular.to.pushNamed('/tasks/create').then(
+                    (value) => widget.homeController.getTasks(),
+                  );
             },
             child: const Icon(Icons.add),
           ),
