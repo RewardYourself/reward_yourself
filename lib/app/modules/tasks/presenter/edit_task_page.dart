@@ -29,6 +29,20 @@ class _EditTaskPageState extends State<EditTaskPage> {
   final formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    loadTask();
+  }
+
+  void loadTask() async {
+    TaskModel task = await widget.editTaskController.getTask(widget.id);
+    _titleController.text = task.title;
+    _durationController.text = task.duration.toString();
+    _costController.text = task.cost.toString();
+    _descriptionController.text = task.description.toString();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
