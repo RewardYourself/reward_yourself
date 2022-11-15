@@ -4,9 +4,13 @@ import 'package:reward_yourself/app/modules/tasks/models/task_model.dart';
 
 class CreateTaskController {
   void createTask(TaskModel taskModel) {
-    final db = FirebaseFirestore.instance;
-
-    db.collection("tasks").add(taskModel.toJson());
-    AsukaSnackbar.success("Tarefa criada").show();
+    DocumentReference documentReference = FirebaseFirestore.instance.collection("tasks").doc(taskModel.title);
+    documentReference.set(taskModel.toJson()).whenComplete(() => {
+      AsukaSnackbar.success("Tarefa criada").show()
+    });
+    
+    //final db = FirebaseFirestore.instance;
+    //db.collection("tasks").add(taskModel.toJson());
+    //AsukaSnackbar.success("Tarefa criada").show();
   }
 }
