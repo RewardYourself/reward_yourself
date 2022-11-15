@@ -48,17 +48,17 @@ class _HomePageState extends State<HomePage> {
             fontSize: 16,
             color: Color(0xFFFDA951),
           ),
-          
         ),
         actions: <Widget>[
           IconButton(
-            onPressed:(){}, icon: Icon(Icons.notifications_outlined, color: Color(0xFFFDA951))
-            )
+              onPressed: () {},
+              icon:
+                  Icon(Icons.notifications_outlined, color: Color(0xFFFDA951)))
         ],
         leading: Image.asset(
-            "assets/images/logo.png",
-            width: 50,
-            height: 50,
+          "assets/images/Logo.png",
+          width: 50,
+          height: 50,
         ),
         backgroundColor: Color.fromRGBO(255, 250, 244, 1),
         elevation: 0,
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Container(
-            color:Color.fromARGB(121, 255, 242, 229),
+            color: Color.fromARGB(121, 255, 242, 229),
             child: Align(
               alignment: Alignment.center,
               child: Image.asset("assets/images/multiTaskGirl.png"),
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Align(
             alignment: Alignment.topRight,
-              child:  FloatingActionButton(
+            child: FloatingActionButton(
               backgroundColor: Color.fromRGBO(242, 242, 242, 1),
               foregroundColor: Color(0xFFFDA951),
               tooltip: "Adicionar Tarefas",
@@ -82,33 +82,41 @@ class _HomePageState extends State<HomePage> {
                 Modular.to.pushNamed('/addTask');
               },
               child: Icon(Icons.add),
-              
             ),
           ),
           Container(
-            color:Color.fromARGB(121, 255, 242, 229),
+            color: Color.fromARGB(121, 255, 242, 229),
             child: Row(
-            children: [
-                Image.asset('images/money.png'),
-                Text("50", style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'MavenPro',
-                  fontSize: 14,
-                  color: Color(0xFFFDA951),
+              children: [
+                Image.asset('assets/images/money.png'),
+                Text(
+                  "50",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'MavenPro',
+                    fontSize: 14,
+                    color: Color(0xFFFDA951),
+                  ),
                 ),
-                ),
-            ],
-          ),
+              ],
+            ),
           ),
           Container(
             child: Row(
-            children: [
-              Text("Suas ",style: const TextStyle(fontFamily: 'MavenPro',
-                  fontSize: 16,color:Color.fromRGBO(143, 143, 143, 1))),
-              Text("Tarefas", style: const TextStyle(fontWeight: FontWeight.w600, fontFamily: 'MavenPro',
-                  fontSize: 16,color:Color.fromRGBO(143, 143, 143, 1)))
-            ],
-          ),
+              children: [
+                Text("Suas ",
+                    style: const TextStyle(
+                        fontFamily: 'MavenPro',
+                        fontSize: 16,
+                        color: Color.fromRGBO(143, 143, 143, 1))),
+                Text("Tarefas",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'MavenPro',
+                        fontSize: 16,
+                        color: Color.fromRGBO(143, 143, 143, 1)))
+              ],
+            ),
           ),
         ],
       ),
@@ -118,7 +126,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Color.fromRGBO(246, 246, 246, 1),
           onPressed: () {},
           child: Image.asset(
-            "assets/images/trophy.png",
+            "assets/images/Trophy.png",
             width: 50,
             height: 50,
           )),
@@ -133,13 +141,13 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        icon: Image.asset('images/list.png'),
+                        icon: Image.asset('assets/images/list.png'),
                         iconSize: 25,
                         onPressed: () {},
                       ),
                       SizedBox(width: 24),
                       IconButton(
-                        icon: Image.asset('images/person.png'),
+                        icon: Image.asset('assets/images/person.png'),
                         iconSize: 25,
                         onPressed: () {},
                       ),
