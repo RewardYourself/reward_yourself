@@ -80,121 +80,131 @@ class _HomePageState extends State<HomePage> {
               child: Image.asset("assets/images/multiTaskGirl.png"),
             ),
           ),
-          Align(
-            alignment: Alignment.topRight,
-            child: FloatingActionButton(
-              backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
-              foregroundColor: const Color(0xFFFDA951),
-              tooltip: "Adicionar Tarefas",
-              onPressed: () {
-                Modular.to.pushNamed('/addTask');
-              },
-              child: const Icon(Icons.add),
-            ),
-          ),
-          Container(
-            color: const Color.fromARGB(121, 255, 242, 229),
-            child: Row(
-              children: [
-                Image.asset('assets/images/money.png'),
-                const Text(
-                  "50",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'MavenPro',
-                    fontSize: 14,
-                    color: Color(0xFFFDA951),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: FloatingActionButton(
+                      backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
+                      foregroundColor: const Color(0xFFFDA951),
+                      tooltip: "Adicionar Tarefas",
+                      onPressed: () {
+                        Modular.to.pushNamed('/addTask');
+                      },
+                      child: const Icon(Icons.add),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Row(
-              children: [
-                const Text("Suas ",
-                    style: TextStyle(
-                        fontFamily: 'MavenPro',
-                        fontSize: 16,
-                        color: Color.fromRGBO(143, 143, 143, 1))),
-                const Text("Tarefas",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'MavenPro',
-                        fontSize: 16,
-                        color: Color.fromRGBO(143, 143, 143, 1)))
-              ],
-            ),
-          ),
-          Observer(
-            builder: (context) {
-              return Expanded(
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: widget.homeController.tasks.length,
-                    itemBuilder: (context, index) {
-                      final task = widget.homeController.tasks[index];
-                      if (widget.homeController.isLoading) {
-                        return const CircularProgressIndicator();
-                      }
-
-                      return Slidable(
-                        endActionPane:
-                            ActionPane(motion: const ScrollMotion(), children: [
-                          SlidableAction(
-                            onPressed: (_) {
-                              //TODO: Navigate do Edit
-                            },
-                            backgroundColor: Color(0xFFfbac53),
-                            foregroundColor: Colors.white,
-                            icon: Icons.edit,
-                            label: 'Editar',
-                          ),
-                        ]),
-                        child: Card(
-                          child: ListTile(
-                            minVerticalPadding: 16,
-                            leading: CircleAvatar(
-                              backgroundColor: Color(0xFFfbac53),
-                              foregroundColor: Colors.black,
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.done,
-                                  size: 24,
-                                ),
-                                onPressed: (() {
-                                  //TODO: Call controller to finish task
-                                }),
-                              ),
-                            ),
-                            title: Text(task.title),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(task.description ?? ""),
-                                Text(
-                                  "Duração: ${task.duration.toString()} hora",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image.asset("assets/images/coin.png"),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text(task.cost.toString()),
-                              ],
-                            ),
+                  Container(
+                    color: const Color.fromARGB(121, 255, 242, 229),
+                    child: Row(
+                      children: [
+                        Image.asset('assets/images/money.png'),
+                        const Text(
+                          "50",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'MavenPro',
+                            fontSize: 14,
+                            color: Color(0xFFFDA951),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: const [
+                      Text("Suas ",
+                          style: TextStyle(
+                              fontFamily: 'MavenPro',
+                              fontSize: 16,
+                              color: Color.fromRGBO(143, 143, 143, 1))),
+                      Text("Tarefas",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'MavenPro',
+                              fontSize: 16,
+                              color: Color.fromRGBO(143, 143, 143, 1)))
+                    ],
+                  ),
+                  Observer(
+                    builder: (context) {
+                      return Expanded(
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: widget.homeController.tasks.length,
+                            itemBuilder: (context, index) {
+                              final task = widget.homeController.tasks[index];
+                              if (widget.homeController.isLoading) {
+                                return const CircularProgressIndicator();
+                              }
+
+                              return Slidable(
+                                endActionPane: ActionPane(
+                                    motion: const ScrollMotion(),
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (_) {
+                                          //TODO: Navigate do Edit
+                                        },
+                                        backgroundColor:
+                                            const Color(0xFFfbac53),
+                                        foregroundColor: Colors.white,
+                                        icon: Icons.edit,
+                                        label: 'Editar',
+                                      ),
+                                    ]),
+                                child: Card(
+                                  child: ListTile(
+                                    minVerticalPadding: 16,
+                                    leading: CircleAvatar(
+                                      backgroundColor: const Color(0xFFfbac53),
+                                      foregroundColor: Colors.black,
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.done,
+                                          size: 24,
+                                        ),
+                                        onPressed: (() {
+                                          //TODO: Call controller to finish task
+                                        }),
+                                      ),
+                                    ),
+                                    title: Text(task.title),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(task.description ?? ""),
+                                        Text(
+                                          "Duração: ${task.duration.toString()} hora",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Image.asset("assets/images/coin.png"),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(task.cost.toString()),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
                       );
-                    }),
-              );
-            },
+                    },
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       ),
