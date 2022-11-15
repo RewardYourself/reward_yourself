@@ -9,12 +9,12 @@ class EditTaskPage extends StatefulWidget {
   const EditTaskPage({
     Key? key,
     required this.editTaskController,
-    required this.id,
+    required this.title,
   })
       : super(key: key);
 
   final EditTaskController editTaskController;
-  final String? id;
+  final String? title;
 
   @override
   State<EditTaskPage> createState() => _EditTaskPageState();
@@ -35,7 +35,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
   }
 
   void loadTask() async {
-    TaskModel task = await widget.editTaskController.getTask(widget.id);
+    TaskModel task = await widget.editTaskController.getTask(widget.title);
     _titleController.text = task.title;
     _durationController.text = task.duration.toString();
     _costController.text = task.cost.toString();
@@ -173,7 +173,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                               permanent: permanent,
                               description: _descriptionController.text,
                             );
-                            widget.editTaskController.editTask(taskModel, widget.id);
+                            widget.editTaskController.editTask(taskModel, widget.title);
                           }
                         },
                         style: ElevatedButton.styleFrom(

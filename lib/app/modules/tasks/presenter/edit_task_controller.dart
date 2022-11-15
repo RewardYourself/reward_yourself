@@ -4,17 +4,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:reward_yourself/app/modules/tasks/models/task_model.dart';
 
 class EditTaskController {
-  void editTask(TaskModel taskModel, id) {
+  void editTask(TaskModel taskModel, title) {
     final db = FirebaseFirestore.instance;
 
-    db.collection("tasks").doc(id).update(taskModel.toJson());
+    db.collection("tasks").doc(title).update(taskModel.toJson());
     AsukaSnackbar.success("Tarefa editada").show();
   }
 
-  Future<TaskModel> getTask(id) async {
+  Future<TaskModel> getTask(title) async {
     final db = FirebaseFirestore.instance;
 
-    var task = await db.collection("tasks").doc(id).get();
+    var task = await db.collection("tasks").doc(title).get();
 
     return TaskModel(
       user: FirebaseAuth.instance.currentUser!.uid,

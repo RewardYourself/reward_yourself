@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -163,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         SlidableAction(
                                           onPressed: (_) {
-                                            //TODO: Navigate do Edit
+                                            Modular.to.pushNamed('/tasks/edit/${task.title}');
                                           },
                                           backgroundColor:
                                               const Color(0xFFfbac53),

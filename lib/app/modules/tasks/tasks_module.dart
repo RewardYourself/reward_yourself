@@ -17,8 +17,8 @@ class TasksModule extends Module {
         child: (context, args) => CreateTaskPage(
               createTaskController: context.read(),
             )),
-    ChildRoute("/edit/:id",
+    ChildRoute("/edit/:title",
         child: (context, args) => EditTaskPage(
-            editTaskController: context.read(), id: args.params['id'])),
+            editTaskController: context.read(), title: args.params['title'])),
   ];
 }
