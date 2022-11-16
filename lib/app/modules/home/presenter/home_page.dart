@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    widget.homeController.getTasks();
+    widget.homeController.getTasks(FirebaseAuth.instance.currentUser!.uid);
     super.initState();
   }
 
@@ -236,7 +236,7 @@ class _HomePageState extends State<HomePage> {
             tooltip: "Adicionar Tarefas",
             onPressed: () {
               Modular.to.pushNamed('/tasks/create').then(
-                    (value) => widget.homeController.getTasks(),
+                    (value) => widget.homeController.getTasks(FirebaseAuth.instance.currentUser!.uid),
                   );
             },
             child: const Icon(Icons.add),

@@ -45,8 +45,8 @@ mixin _$HomeController on HomeControllerBase, Store {
       AsyncAction('HomeControllerBase.getTasks', context: context);
 
   @override
-  Future<void> getTasks() {
-    return _$getTasksAsyncAction.run(() => super.getTasks());
+  Future<void> getTasks(uid) {
+    return _$getTasksAsyncAction.run(() => super.getTasks(uid));
   }
 
   @override
