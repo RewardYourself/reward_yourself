@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           onPressed: (() {
                                             widget.completeTaskController
-                                                .completeTask(task.title);
+                                                .completeTask(task.title,FirebaseAuth.instance.currentUser!.uid);
                                           }),
                                         ),
                                       ),
