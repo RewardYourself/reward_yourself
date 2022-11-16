@@ -30,4 +30,15 @@ class UserWalletController {
       print("\n\n"+e.toString()+"\n\n");
     }
   }
+
+  Future<WalletModel> getWallet(uid) async {
+    final db = FirebaseFirestore.instance;
+
+    var wallet = await db.collection("wallets").doc(uid).get();
+
+    return WalletModel(
+      user: FirebaseAuth.instance.currentUser!.uid,
+      amount: wallet["amount"],
+    );
+  }
 }
