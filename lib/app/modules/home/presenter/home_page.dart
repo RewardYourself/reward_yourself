@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -96,75 +97,86 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Material(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        elevation: 2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFFF7E3),
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 16),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset('assets/images/money.png'),
-                              const Text(
-                                "50",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'MavenPro',
-                                  fontSize: 14,
-                                  color: Color(0xFFFDA951),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Material(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          elevation: 2,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFFF7E3),
+                              borderRadius: BorderRadius.all(Radius.circular(50)),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 16),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset('assets/images/money.png'),
+                                const Text(
+                                  "50",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'MavenPro',
+                                    fontSize: 14,
+                                    color: Color(0xFFFDA951),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      children: const [
-                        Text("Suas ",
-                            style: TextStyle(
-                                fontFamily: 'MavenPro',
-                                fontSize: 16,
-                                color: Color.fromRGBO(143, 143, 143, 1))),
-                        Text("Tarefas",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'MavenPro',
-                                fontSize: 16,
-                                color: Color.fromRGBO(143, 143, 143, 1)))
-                      ],
-                    ),
-                    Observer(
-                      builder: (context) {
-                        return Expanded(
-                          child: ListView.builder(
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: const [
+                          Text("Suas ",
+                              style: TextStyle(
+                                  fontFamily: 'MavenPro',
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(143, 143, 143, 1))),
+                          Text("Tarefas",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'MavenPro',
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(143, 143, 143, 1)))
+                        ],
+                      ),
+                      SingleChildScrollView(
+                        child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection("tasks")
+                              .where('user',
+                                  isEqualTo:
+                                      FirebaseAuth.instance.currentUser!.uid)
+                              .snapshots(),
+                          builder: (((context, snapshot) {
+                            return ListView.builder(
                               shrinkWrap: true,
-                              itemCount: widget.homeController.tasks.length,
+                              physics: ScrollPhysics(),
+                              itemCount: snapshot.data!.docs
+                                  .where((element) => element
+                                      .data()
+                                      .containsValue(
+                                          FirebaseAuth.instance.currentUser!.uid))
+                                  .length,
                               itemBuilder: (context, index) {
-                                final task = widget.homeController.tasks[index];
-                                if (widget.homeController.isLoading) {
-                                  return const CircularProgressIndicator();
-                                }
-
+                                DocumentSnapshot documentSnapshot =
+                                    snapshot.data!.docs[index];
                                 return Slidable(
                                   endActionPane: ActionPane(
                                       motion: const ScrollMotion(),
                                       children: [
                                         SlidableAction(
                                           onPressed: (_) {
-                                            Modular.to.pushNamed('/tasks/edit/${task.title}');
+                                            Modular.to.pushNamed(
+                                                '/tasks/edit/${documentSnapshot['title']}');
                                           },
                                           backgroundColor:
                                               const Color(0xFFfbac53),
@@ -177,8 +189,7 @@ class _HomePageState extends State<HomePage> {
                                     child: ListTile(
                                       minVerticalPadding: 16,
                                       leading: CircleAvatar(
-                                        backgroundColor:
-                                            const Color(0xFFfbac53),
+                                        backgroundColor: const Color(0xFFfbac53),
                                         foregroundColor: Colors.black,
                                         child: IconButton(
                                           icon: const Icon(
@@ -187,18 +198,22 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           onPressed: (() {
                                             widget.completeTaskController
-                                                .completeTask(task.title,FirebaseAuth.instance.currentUser!.uid);
+                                                .completeTask(
+                                                    documentSnapshot['title'],
+                                                    FirebaseAuth.instance
+                                                        .currentUser!.uid);
                                           }),
                                         ),
                                       ),
-                                      title: Text(task.title),
+                                      title: Text(documentSnapshot['title']),
                                       subtitle: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(task.description ?? ""),
+                                          Text(documentSnapshot['description'] ??
+                                              ""),
                                           Text(
-                                            "Duração: ${task.duration.toString()} hora",
+                                            "Duração: ${documentSnapshot['duration'].toString()} hora",
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.w600),
                                           ),
@@ -211,17 +226,25 @@ class _HomePageState extends State<HomePage> {
                                           const SizedBox(
                                             width: 8,
                                           ),
-                                          Text(task.reward.toString()),
+                                          Text(documentSnapshot['reward']
+                                              .toString()),
                                         ],
                                       ),
                                     ),
                                   ),
                                 );
-                              }),
-                        );
-                      },
-                    ),
-                  ],
+                              },
+                            );
+                          })),
+                        ),
+                      ),
+                      //Observer(
+                      //  builder: (context) {
+                      //
+                      //  },
+                      //),
+                    ],
+                  ),
                 ),
               ),
             )
@@ -236,7 +259,8 @@ class _HomePageState extends State<HomePage> {
             tooltip: "Adicionar Tarefas",
             onPressed: () {
               Modular.to.pushNamed('/tasks/create').then(
-                    (value) => widget.homeController.getTasks(FirebaseAuth.instance.currentUser!.uid),
+                    (value) => widget.homeController
+                        .getTasks(FirebaseAuth.instance.currentUser!.uid),
                   );
             },
             child: const Icon(Icons.add),
