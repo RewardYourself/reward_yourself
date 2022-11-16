@@ -9,9 +9,7 @@ class UserWalletController {
 
   void createWallet(WalletModel walletModel) {
     DocumentReference documentReference = FirebaseFirestore.instance.collection("wallets").doc(walletModel.user);
-    documentReference.set(walletModel.toJson()).whenComplete(() => {
-      AsukaSnackbar.success("Carteira criada").show()
-    });
+    documentReference.set(walletModel.toJson());
   }
 
   Future<void> addSaldo(String amount) async {
