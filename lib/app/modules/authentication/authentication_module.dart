@@ -6,12 +6,14 @@ import 'package:reward_yourself/app/modules/authentication/presenter/register_pa
 import 'package:reward_yourself/app/modules/authentication/presenter/register_controller.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/splash_page.dart';
 import 'package:reward_yourself/app/modules/authentication/presenter/success_page.dart';
+import 'package:reward_yourself/app/modules/userWallet/user_wallet_controller.dart';
 
 class AuthenticationModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.lazySingleton((i) => LoginController()),
     Bind.lazySingleton((i) => RegisterController()),
+    Bind.lazySingleton((i) => UserWalletController())
   ];
 
   @override
@@ -29,7 +31,7 @@ class AuthenticationModule extends Module {
     ChildRoute(
       '/register',
       child: (context, args) => RegisterPage(
-        registerController: context.read(),
+        registerController: context.read(),userWalletController: context.read(),
       ),
     ),
     ChildRoute(
