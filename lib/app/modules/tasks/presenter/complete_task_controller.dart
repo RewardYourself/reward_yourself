@@ -15,10 +15,10 @@ class CompleteTaskController {
           () => {AsukaSnackbar.success("Tarefa concluida!").show()});
     }
 
-    userWalletController.addSaldo(snapshot["cost"].toString());
+    userWalletController.addSaldo(snapshot["reward"].toString());
 
     AsukaSnackbar.success(
-            "Você ganhou " + snapshot["cost"].toString() + " moedas!!")
+            "Você ganhou " + snapshot["reward"].toString() + " moedas!!")
         .show();
   }
 }

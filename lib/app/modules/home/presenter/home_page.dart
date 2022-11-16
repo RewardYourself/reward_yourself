@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                                           const SizedBox(
                                             width: 8,
                                           ),
-                                          Text(task.cost.toString()),
+                                          Text(task.reward.toString()),
                                         ],
                                       ),
                                     ),

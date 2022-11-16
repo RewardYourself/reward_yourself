@@ -19,7 +19,7 @@ class EditTaskController {
     return TaskModel(
       user: FirebaseAuth.instance.currentUser!.uid,
       title: task["title"],
-      cost: task["cost"],
+      reward: task["reward"],
       duration: task["duration"],
       permanent: task["permanent"],
       description: task["description"],
