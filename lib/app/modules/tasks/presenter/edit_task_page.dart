@@ -35,7 +35,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
   }
 
   void loadTask() async {
-    TaskModel task = await widget.editTaskController.getTask(widget.title);
+    TaskModel task = await widget.editTaskController.getTask(widget.title,FirebaseAuth.instance.currentUser!.uid);
     _titleController.text = task.title;
     _durationController.text = task.duration.toString();
     _rewardController.text = task.reward.toString();
@@ -131,7 +131,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                 ),
                 CustomTextField(
                   textInputAction: TextInputAction.next,
-                  label: "Custo*",
+                  label: "Recompensa*",
                   controller: _rewardController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
@@ -173,7 +173,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                               permanent: permanent,
                               description: _descriptionController.text,
                             );
-                            widget.editTaskController.editTask(taskModel, widget.title);
+                            widget.editTaskController.editTask(taskModel, widget.title, FirebaseAuth.instance.currentUser!.uid);
                           }
                         },
                         style: ElevatedButton.styleFrom(

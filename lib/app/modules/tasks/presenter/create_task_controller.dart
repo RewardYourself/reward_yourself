@@ -4,7 +4,7 @@ import 'package:reward_yourself/app/modules/tasks/models/task_model.dart';
 
 class CreateTaskController {
   void createTask(TaskModel taskModel) {
-    DocumentReference documentReference = FirebaseFirestore.instance.collection("tasks").doc(taskModel.title);
+    DocumentReference documentReference = FirebaseFirestore.instance.collection("tasks").doc();
     documentReference.set(taskModel.toJson()).whenComplete(() => {
       AsukaSnackbar.success("Tarefa criada").show()
     });
