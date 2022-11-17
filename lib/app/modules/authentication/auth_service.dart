@@ -7,7 +7,7 @@ class AuthService {
       if (user == null) {
         Modular.to.navigate("/login");
       } else {
-        Modular.to.navigate("/home");
+        Modular.to.navigate("/home/");
       }
     });
   }

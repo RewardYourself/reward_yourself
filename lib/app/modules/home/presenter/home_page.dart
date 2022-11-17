@@ -6,17 +6,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
 import 'package:reward_yourself/app/modules/tasks/presenter/complete_task_controller.dart';
+import 'package:reward_yourself/app/modules/tasks/presenter/delete_task_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
       {Key? key,
       required this.homeController,
-      required this.completeTaskController})
+      required this.completeTaskController,
+      required this.deleteTaskController})
       : super(key: key);
 
   final HomeController homeController;
 
   final CompleteTaskController completeTaskController;
+  final DeleteTaskController deleteTaskController;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -235,9 +238,7 @@ class _HomePageState extends State<HomePage> {
             foregroundColor: const Color(0xFFFDA951),
             tooltip: "Adicionar Tarefas",
             onPressed: () {
-              Modular.to.pushNamed('/tasks/create').then(
-                    (value) => widget.homeController.getTasks(),
-                  );
+              Modular.to.pushNamed('/tasks/create').then((value) => widget.homeController.getTasks());
             },
             child: const Icon(Icons.add),
           ),

@@ -19,7 +19,7 @@ class _SuccessPageState extends State<SuccessPage> with SingleTickerProviderStat
     _animation = CurvedAnimation(parent: _animationController, curve: Curves.bounceOut, reverseCurve: Curves.bounceIn);
     _animationController.forward();
     super.initState();
-    Future.delayed(Duration(seconds: 3)).then((_) => Modular.to.navigate('/home'));
+    Future.delayed(Duration(seconds: 3)).then((_) => Modular.to.navigate('/home/'));
   }
 
   @override
