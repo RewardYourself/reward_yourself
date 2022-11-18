@@ -188,6 +188,16 @@ class _HomePageState extends State<HomePage> {
                                           icon: Icons.edit,
                                           label: 'Editar',
                                         ),
+                                        SlidableAction(
+                                          onPressed: (_) {
+                                            widget.deleteTaskController
+                                              .deleteTask(documentSnapshot.id);
+                                          },
+                                          backgroundColor: Colors.red,
+                                          foregroundColor: Colors.white,
+                                          icon: Icons.delete,
+                                          label: 'Excluir',
+                                        ),
                                       ]),
                                   child: Card(
                                     child: ListTile(
@@ -202,10 +212,10 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           onPressed: (() {
                                             widget.completeTaskController
-                                                .completeTask(
-                                                    documentSnapshot['title'],
-                                                    FirebaseAuth.instance
-                                                        .currentUser!.uid);
+                                              .completeTask(
+                                                documentSnapshot.id,
+                                                FirebaseAuth.instance
+                                                  .currentUser!.uid);
                                           }),
                                         ),
                                       ),

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:reward_yourself/app/modules/tasks/presenter/create_task_controller.dart';
 import 'package:reward_yourself/app/modules/tasks/models/task_model.dart';
 import 'package:reward_yourself/components/text_field.dart';

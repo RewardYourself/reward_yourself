@@ -6,14 +6,13 @@ import '../models/task_model.dart';
 
 class CompleteTaskController {
   UserWalletController userWalletController = UserWalletController();
-  Future<void> completeTask(title, uid) async {
+  Future<void> completeTask(idTask, uid) async {
     final db = FirebaseFirestore.instance;
 
     final tasksQuery = await db.collection("tasks").get();
-    String idTask = "";
+
     final tasks = tasksQuery.docs.map((e) {
-      if (e.data().containsValue(title) && e.data().containsValue(uid)) {
-        idTask = e.id;
+      if (e.id == idTask && e.data().containsValue(uid)) {
         return TaskModel.fromJson(e.data());
       }
     }).toList();
