@@ -261,14 +261,10 @@ class _HomePageState extends State<HomePage> {
             foregroundColor: const Color(0xFFFDA951),
             tooltip: "Adicionar Tarefas",
             onPressed: () {
-<<<<<<< HEAD
-              Modular.to.pushNamed('/tasks/create').then((value) => widget.homeController.getTasks());
-=======
               Modular.to.pushNamed('/tasks/create').then(
                     (value) => widget.homeController
                         .getTasks(FirebaseAuth.instance.currentUser!.uid),
                   );
->>>>>>> 43a5afd4b2a6e6e20fec64604627581229e14ed5
             },
             child: const Icon(Icons.add),
           ),
