@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:reward_yourself/app/modules/tasks/presenter/create_task_controller.dart';
 import 'package:reward_yourself/app/modules/tasks/models/task_model.dart';
 import 'package:reward_yourself/components/text_field.dart';
@@ -17,7 +18,7 @@ class CreateTaskPage extends StatefulWidget {
 class _CreateTaskPageState extends State<CreateTaskPage> {
   final _titleController = TextEditingController();
   final _durationController = TextEditingController();
-  final _costController = TextEditingController();
+  final _rewardController = TextEditingController();
   final _descriptionController = TextEditingController();
   bool permanent = false;
   final formKey = GlobalKey<FormState>();
@@ -111,8 +112,8 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                 ),
                 CustomTextField(
                   textInputAction: TextInputAction.next,
-                  label: "Custo*",
-                  controller: _costController,
+                  label: "Recompensa*",
+                  controller: _rewardController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
@@ -146,14 +147,17 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                             final taskModel = TaskModel(
                               user: FirebaseAuth.instance.currentUser!.uid,
                               title: _titleController.text,
-                              cost: int.parse(_costController.text),
+                              reward: int.parse(_rewardController.text),
                               duration: _durationController.text.isNotEmpty
                                   ? double.parse(_durationController.text)
                                   : null,
                               permanent: permanent,
                               description: _descriptionController.text,
                             );
-                            widget.createTaskController.createTask(taskModel);
+                            var success = widget.createTaskController
+                                .createTask(taskModel);
+                            print("\n\nSuccess -> " + success.toString() + "\n\n");
+                            Navigator.pop(context);
                           }
                         },
                         style: ElevatedButton.styleFrom(

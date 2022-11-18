@@ -23,7 +23,7 @@ class EditTaskPage extends StatefulWidget {
 class _EditTaskPageState extends State<EditTaskPage> {
   final _titleController = TextEditingController();
   final _durationController = TextEditingController();
-  final _costController = TextEditingController();
+  final _rewardController = TextEditingController();
   final _descriptionController = TextEditingController();
   bool permanent = false;
   final formKey = GlobalKey<FormState>();
@@ -35,10 +35,10 @@ class _EditTaskPageState extends State<EditTaskPage> {
   }
 
   void loadTask() async {
-    TaskModel task = await widget.editTaskController.getTask(widget.title);
+    TaskModel task = await widget.editTaskController.getTask(widget.title,FirebaseAuth.instance.currentUser!.uid);
     _titleController.text = task.title;
     _durationController.text = task.duration.toString();
-    _costController.text = task.cost.toString();
+    _rewardController.text = task.reward.toString();
     _descriptionController.text = task.description.toString();
   }
 
@@ -131,8 +131,8 @@ class _EditTaskPageState extends State<EditTaskPage> {
                 ),
                 CustomTextField(
                   textInputAction: TextInputAction.next,
-                  label: "Custo*",
-                  controller: _costController,
+                  label: "Recompensa*",
+                  controller: _rewardController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
@@ -166,14 +166,14 @@ class _EditTaskPageState extends State<EditTaskPage> {
                             final taskModel = TaskModel(
                               user: FirebaseAuth.instance.currentUser!.uid,
                               title: _titleController.text,
-                              cost: int.parse(_costController.text),
+                              reward: int.parse(_rewardController.text),
                               duration: _durationController.text.isNotEmpty
                                   ? double.parse(_durationController.text)
                                   : null,
                               permanent: permanent,
                               description: _descriptionController.text,
                             );
-                            widget.editTaskController.editTask(taskModel, widget.title);
+                            widget.editTaskController.editTask(taskModel, widget.title, FirebaseAuth.instance.currentUser!.uid);
                           }
                         },
                         style: ElevatedButton.styleFrom(

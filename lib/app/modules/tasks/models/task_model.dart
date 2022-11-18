@@ -2,7 +2,7 @@ class TaskModel {
   final String user;
   final String title;
   final double? duration;
-  final int cost;
+  final int reward;
   final String? description;
   final bool permanent;
 
@@ -10,7 +10,7 @@ class TaskModel {
     required this.user,
     required this.title,
     this.duration,
-    required this.cost,
+    required this.reward,
     this.description,
     required this.permanent,
   });
@@ -20,7 +20,7 @@ class TaskModel {
       user: json['user'],
       title: json['title'],
       duration: json['duration'] + .0,
-      cost: json['cost'],
+      reward: json['reward'],
       description: json['description'],
       permanent: json['permanent'],
     );
@@ -31,7 +31,7 @@ class TaskModel {
     data['user'] = user;
     data['title'] = title;
     data['duration'] = duration;
-    data['cost'] = cost;
+    data['reward'] = reward;
     data['description'] = description;
     data['permanent'] = permanent;
     return data;

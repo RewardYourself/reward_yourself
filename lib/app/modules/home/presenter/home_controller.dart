@@ -17,13 +17,18 @@ abstract class HomeControllerBase with Store {
   List<TaskModel> tasks = [];
 
   @action
-  Future<void> getTasks() async {
+  Future<void> getTasks(uid) async {
     final db = FirebaseFirestore.instance;
     isLoading = true;
     final tasksQuery = await db.collection("tasks").get();
     final tasks = tasksQuery.docs.map((e) {
       return TaskModel.fromJson(e.data());
     }).toList();
+    for (var task in tasks) {
+      if (task.user != uid) {
+        tasks.remove(task);
+      }
+    }
     this.tasks = tasks;
     isLoading = false;
   }

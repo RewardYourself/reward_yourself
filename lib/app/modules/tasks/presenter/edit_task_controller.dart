@@ -4,22 +4,42 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:reward_yourself/app/modules/tasks/models/task_model.dart';
 
 class EditTaskController {
-  void editTask(TaskModel taskModel, title) {
+  Future<void> editTask(TaskModel taskModel, title, uid) async {
     final db = FirebaseFirestore.instance;
 
-    db.collection("tasks").doc(title).update(taskModel.toJson());
+    final tasksQuery = await db.collection("tasks").get();
+    String idTask = "";
+    final tasks = tasksQuery.docs.map((e) {
+      if (e.data().containsValue(title) && e.data().containsValue(uid)) {
+        idTask = e.id;
+        return TaskModel.fromJson(e.data());
+      }
+    }).toList();
+
+    if (idTask != "") {
+      db.collection("tasks").doc(idTask).update(taskModel.toJson());
+    }
     AsukaSnackbar.success("Tarefa editada").show();
   }
 
-  Future<TaskModel> getTask(title) async {
+  Future<TaskModel> getTask(title, uid) async {
     final db = FirebaseFirestore.instance;
 
-    var task = await db.collection("tasks").doc(title).get();
+    final tasksQuery = await db.collection("tasks").get();
+    String idTask = "";
+    final tasks = tasksQuery.docs.map((e) {
+      if (e.data().containsValue(title) && e.data().containsValue(uid)) {
+        idTask = e.id;
+        return TaskModel.fromJson(e.data());
+      }
+    }).toList();
+
+    var task = await db.collection("tasks").doc(idTask).get();
 
     return TaskModel(
       user: FirebaseAuth.instance.currentUser!.uid,
       title: task["title"],
-      cost: task["cost"],
+      reward: task["reward"],
       duration: task["duration"],
       permanent: task["permanent"],
       description: task["description"],
