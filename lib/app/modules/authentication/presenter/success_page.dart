@@ -39,7 +39,6 @@ class _SuccessPageState extends State<SuccessPage> with SingleTickerProviderStat
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(padding: EdgeInsets.only(top: 206)),
                 Image.asset(
                   "assets/images/checked.png",
                   alignment: Alignment.center,

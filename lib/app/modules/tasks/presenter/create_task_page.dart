@@ -156,7 +156,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                             );
                             var success = widget.createTaskController
                                 .createTask(taskModel);
-                            print("\n\nSuccess -> " + success.toString() + "\n\n");
+                            print("\n\nSuccess -> ${success.toString()} \n\n");
                             Navigator.pop(context);
                           }
                         },

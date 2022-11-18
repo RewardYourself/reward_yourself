@@ -28,7 +28,7 @@ class CompleteTaskController {
     userWalletController.addSaldo(completedTask['reward'].toString());
 
     AsukaSnackbar.success(
-            "Tarefa concluida! Você ganhou " + completedTask["reward"].toString() + " moedas!!")
-        .show();
+      "Tarefa concluida! Você ganhou ${completedTask["reward"].toString()} moedas!!")
+      .show();
   }
 }

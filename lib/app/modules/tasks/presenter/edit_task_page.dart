@@ -9,12 +9,12 @@ class EditTaskPage extends StatefulWidget {
   const EditTaskPage({
     Key? key,
     required this.editTaskController,
-    required this.title,
+    required this.id,
   })
       : super(key: key);
 
   final EditTaskController editTaskController;
-  final String? title;
+  final String? id;
 
   @override
   State<EditTaskPage> createState() => _EditTaskPageState();
@@ -35,7 +35,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
   }
 
   void loadTask() async {
-    TaskModel task = await widget.editTaskController.getTask(widget.title,FirebaseAuth.instance.currentUser!.uid);
+    TaskModel task = await widget.editTaskController.getTask(widget.id, FirebaseAuth.instance.currentUser!.uid);
     _titleController.text = task.title;
     _durationController.text = task.duration.toString();
     _rewardController.text = task.reward.toString();
@@ -173,7 +173,9 @@ class _EditTaskPageState extends State<EditTaskPage> {
                               permanent: permanent,
                               description: _descriptionController.text,
                             );
-                            widget.editTaskController.editTask(taskModel, widget.title, FirebaseAuth.instance.currentUser!.uid);
+                            widget.editTaskController
+                              .editTask(taskModel, widget.id, FirebaseAuth.instance.currentUser!.uid);
+                            Navigator.pop(context);
                           }
                         },
                         style: ElevatedButton.styleFrom(

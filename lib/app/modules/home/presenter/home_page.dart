@@ -136,6 +136,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 8,
                       ),
+                      Padding(padding: EdgeInsets.only(bottom: 23)),
                       Row(
                         children: const [
                           Text("Suas ",
@@ -179,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                                         SlidableAction(
                                           onPressed: (_) {
                                             Modular.to.pushNamed(
-                                                '/tasks/edit/${documentSnapshot['title']}');
+                                                '/tasks/edit/${documentSnapshot.id}');
                                           },
                                           backgroundColor:
                                               const Color(0xFFfbac53),
@@ -208,17 +209,36 @@ class _HomePageState extends State<HomePage> {
                                           }),
                                         ),
                                       ),
-                                      title: Text(documentSnapshot['title']),
+                                      title: Text(
+                                        documentSnapshot['title'],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontFamily: 'Maven Pro',
+                                          fontSize: 18,
+                                          color: Color(0xFF555555),
+                                        ),
+                                      ),
                                       subtitle: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(documentSnapshot['description'] ??
-                                              ""),
+                                          Text(
+                                            documentSnapshot['description'] ?? "",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: 'Maven Pro',
+                                              fontSize: 14,
+                                              color: Color(0xFF555555),
+                                            ),
+                                          ),
                                           Text(
                                             "Duração: ${documentSnapshot['duration'].toString()} hora",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600),
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'Maven Pro',
+                                              fontSize: 12,
+                                              color: Color(0xFF555555),
+                                            ),
                                           ),
                                         ],
                                       ),
