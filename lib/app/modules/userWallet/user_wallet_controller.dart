@@ -6,26 +6,36 @@ import 'package:mobx/mobx.dart';
 import 'model/walletModel.dart';
 
 class UserWalletController {
-
   void createWallet(WalletModel walletModel) {
-    DocumentReference documentReference = FirebaseFirestore.instance.collection("wallets").doc(walletModel.user);
+    DocumentReference documentReference =
+        FirebaseFirestore.instance.collection("wallets").doc(walletModel.user);
     documentReference.set(walletModel.toJson());
   }
 
   Future<void> addSaldo(String amount) async {
-    try{
+    try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
       var value = double.parse(amount);
-      DocumentReference documentReference = FirebaseFirestore.instance
-          .collection('wallets')
-          .doc(uid);
-      FirebaseFirestore.instance.runTransaction((transaction) async {
-        DocumentSnapshot snapshot = await transaction.get(documentReference);
-        double newBalance = snapshot.get('amount') + value; 
-        transaction.update(documentReference, {'amount':newBalance});
-      });
-    }catch(e){
-      print("\n\n"+e.toString()+"\n\n");
+
+      final wallet =
+          await FirebaseFirestore.instance.collection("wallets").doc(uid).get();
+      if (wallet.exists) {
+        DocumentReference documentReference =
+            FirebaseFirestore.instance.collection('wallets').doc(uid);
+
+        FirebaseFirestore.instance.runTransaction((transaction) async {
+          DocumentSnapshot snapshot = await transaction.get(documentReference);
+          double newBalance = snapshot.get('amount') + value;
+          transaction.update(documentReference, {'amount': newBalance});
+        });
+      } else {
+        await FirebaseFirestore.instance.collection("wallets").doc(uid).set({
+          "amount": value,
+          "user": uid,
+        });
+      }
+    } catch (e) {
+      print("\n\n" + e.toString() + "\n\n");
     }
   }
 
