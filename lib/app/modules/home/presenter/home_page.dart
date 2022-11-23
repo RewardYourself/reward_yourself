@@ -162,6 +162,10 @@ class _HomePageState extends State<HomePage> {
                                       FirebaseAuth.instance.currentUser!.uid)
                               .snapshots(),
                           builder: (((context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting)
+                              return CircularProgressIndicator();
+
                             return ListView.builder(
                               shrinkWrap: true,
                               physics: ScrollPhysics(),
