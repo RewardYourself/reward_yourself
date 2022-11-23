@@ -10,17 +10,23 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+class _SplashPageState extends State<SplashPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1000));
-    _animation = CurvedAnimation(parent: _animationController, curve: Curves.bounceOut, reverseCurve: Curves.bounceIn);
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1000));
+    _animation = CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.bounceOut,
+        reverseCurve: Curves.bounceIn);
     _animationController.forward();
     super.initState();
-    Future.delayed(Duration(seconds: 3)).then((_) => Modular.to.navigate('/login'));
+    Future.delayed(Duration(seconds: 3))
+        .then((_) => Modular.to.navigate('/login'));
   }
 
   @override
@@ -31,7 +37,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
       backgroundColor: Color.fromARGB(84, 239, 232, 192),
       body: Container(
@@ -51,7 +58,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/logo.png",
+                      "assets/images/Logo.png",
                       width: 34,
                       height: 32,
                     ),

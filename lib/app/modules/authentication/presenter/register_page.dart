@@ -53,7 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "assets/images/logo.png",
+                        "assets/images/Logo.png",
                         width: 34,
                         height: 32,
                       ),

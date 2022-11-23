@@ -6,8 +6,7 @@ import 'package:reward_yourself/app/modules/authentication/presenter/login_contr
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.loginController})
-      : super(key: key);
+  const LoginPage({Key? key, required this.loginController}) : super(key: key);
 
   final LoginController loginController;
 
@@ -16,7 +15,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  
   bool continueConnected = false;
   bool _obscureText = true;
 
@@ -69,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/logo.png",
+                      "assets/images/Logo.png",
                       width: 34,
                       height: 32,
                     ),
@@ -268,11 +266,11 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     setState(() {
                       _emailController.text.isEmpty
-                        ? _validateEmail = true
-                        : _validateEmail = false;
+                          ? _validateEmail = true
+                          : _validateEmail = false;
                       _passwordController.text.isEmpty
-                        ? _validatePassword = true
-                        : _validatePassword = false;
+                          ? _validatePassword = true
+                          : _validatePassword = false;
                     });
                     widget.loginController.signInWithEmail(
                         _emailController.text, _passwordController.text);

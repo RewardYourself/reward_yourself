@@ -111,7 +111,8 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Color(0xFFFFF7E3),
-                              borderRadius: BorderRadius.all(Radius.circular(50)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
                             ),
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 16),
@@ -167,8 +168,8 @@ class _HomePageState extends State<HomePage> {
                               itemCount: snapshot.data!.docs
                                   .where((element) => element
                                       .data()
-                                      .containsValue(
-                                          FirebaseAuth.instance.currentUser!.uid))
+                                      .containsValue(FirebaseAuth
+                                          .instance.currentUser!.uid))
                                   .length,
                               itemBuilder: (context, index) {
                                 DocumentSnapshot documentSnapshot =
@@ -191,7 +192,8 @@ class _HomePageState extends State<HomePage> {
                                         SlidableAction(
                                           onPressed: (_) {
                                             widget.deleteTaskController
-                                              .deleteTask(documentSnapshot.id);
+                                                .deleteTask(
+                                                    documentSnapshot.id);
                                           },
                                           backgroundColor: Colors.red,
                                           foregroundColor: Colors.white,
@@ -203,7 +205,8 @@ class _HomePageState extends State<HomePage> {
                                     child: ListTile(
                                       minVerticalPadding: 16,
                                       leading: CircleAvatar(
-                                        backgroundColor: const Color(0xFFfbac53),
+                                        backgroundColor:
+                                            const Color(0xFFfbac53),
                                         foregroundColor: Colors.black,
                                         child: IconButton(
                                           icon: const Icon(
@@ -212,10 +215,10 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           onPressed: (() {
                                             widget.completeTaskController
-                                              .completeTask(
-                                                documentSnapshot.id,
-                                                FirebaseAuth.instance
-                                                  .currentUser!.uid);
+                                                .completeTask(
+                                                    documentSnapshot.id,
+                                                    FirebaseAuth.instance
+                                                        .currentUser!.uid);
                                           }),
                                         ),
                                       ),
@@ -233,7 +236,8 @@ class _HomePageState extends State<HomePage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            documentSnapshot['description'] ?? "",
+                                            documentSnapshot['description'] ??
+                                                "",
                                             style: TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontFamily: 'Maven Pro',

@@ -34,7 +34,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/logo.png",
+                      "assets/images/Logo.png",
                       width: 34,
                       height: 32,
                     ),
@@ -119,37 +119,39 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                     Padding(padding: EdgeInsets.only(bottom: 30)),
                     ElevatedButton(
                       onPressed: () {
-                        auth.sendPasswordResetEmail(email: _email)
-                        .then((_){
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("Email para alterar senha enviado!"),
-                              backgroundColor: Colors.green,
-                            )
-                          );
-                          Future.delayed(Duration(seconds: 3)).then((_) => Modular.to.pushNamed('/login'));
-                        }).catchError((error){
-                          if(error.code.toString() == 'user-not-found'){
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Email não cadastrado!", style: TextStyle(color: Colors.white),),
-                                backgroundColor: Colors.red,
-                              )
-                            );
-                          }else if(error.code.toString() == 'invalid-email'){
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Email Inválido!", style: TextStyle(color: Colors.white),),
-                                backgroundColor: Colors.red,
-                              )
-                            );
-                          }else if(error.code.toString() == 'too-many-requests'){
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Muitas tentativas, tente novamente mais tarde!", style: TextStyle(color: Colors.white38),),
-                                backgroundColor: Colors.red,
-                              )
-                            );
+                        auth.sendPasswordResetEmail(email: _email).then((_) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Email para alterar senha enviado!"),
+                            backgroundColor: Colors.green,
+                          ));
+                          Future.delayed(Duration(seconds: 3))
+                              .then((_) => Modular.to.pushNamed('/login'));
+                        }).catchError((error) {
+                          if (error.code.toString() == 'user-not-found') {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                "Email não cadastrado!",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: Colors.red,
+                            ));
+                          } else if (error.code.toString() == 'invalid-email') {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                "Email Inválido!",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: Colors.red,
+                            ));
+                          } else if (error.code.toString() ==
+                              'too-many-requests') {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                "Muitas tentativas, tente novamente mais tarde!",
+                                style: TextStyle(color: Colors.white38),
+                              ),
+                              backgroundColor: Colors.red,
+                            ));
                           }
                         });
                       },
