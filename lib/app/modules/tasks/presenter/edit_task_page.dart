@@ -10,8 +10,7 @@ class EditTaskPage extends StatefulWidget {
     Key? key,
     required this.editTaskController,
     required this.id,
-  })
-      : super(key: key);
+  }) : super(key: key);
 
   final EditTaskController editTaskController;
   final String? id;
@@ -35,11 +34,15 @@ class _EditTaskPageState extends State<EditTaskPage> {
   }
 
   void loadTask() async {
-    TaskModel task = await widget.editTaskController.getTask(widget.id, FirebaseAuth.instance.currentUser!.uid);
+    TaskModel task = await widget.editTaskController
+        .getTask(widget.id, FirebaseAuth.instance.currentUser!.uid);
     _titleController.text = task.title;
     _durationController.text = task.duration.toString();
     _rewardController.text = task.reward.toString();
     _descriptionController.text = task.description.toString();
+    setState(() {
+      permanent = task.permanent;
+    });
   }
 
   @override
@@ -173,8 +176,10 @@ class _EditTaskPageState extends State<EditTaskPage> {
                               permanent: permanent,
                               description: _descriptionController.text,
                             );
-                            widget.editTaskController
-                              .editTask(taskModel, widget.id, FirebaseAuth.instance.currentUser!.uid);
+                            widget.editTaskController.editTask(
+                                taskModel,
+                                widget.id,
+                                FirebaseAuth.instance.currentUser!.uid);
                             Navigator.pop(context);
                           }
                         },
