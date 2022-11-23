@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
+import 'package:reward_yourself/app/modules/home/presenter/widgets/money_widget.dart';
 import 'package:reward_yourself/app/modules/tasks/presenter/complete_task_controller.dart';
 import 'package:reward_yourself/app/modules/tasks/presenter/delete_task_controller.dart';
 
@@ -116,21 +117,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 16),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image.asset('assets/images/money.png'),
-                                const Text(
-                                  "50",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'MavenPro',
-                                    fontSize: 14,
-                                    color: Color(0xFFFDA951),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            child: MoneyWidget(),
                           ),
                         ),
                       ),
