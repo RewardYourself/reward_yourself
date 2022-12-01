@@ -7,21 +7,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
 import 'package:reward_yourself/app/modules/home/presenter/widgets/money_widget.dart';
+import 'package:reward_yourself/app/modules/home/presenter/widgets/rewards_list_widget.dart';
+import 'package:reward_yourself/app/modules/home/presenter/widgets/tasks_lists_widget.dart';
+import 'package:reward_yourself/app/modules/rewards/presenter/complete_reward_controller.dart';
+import 'package:reward_yourself/app/modules/rewards/presenter/delete_reward_controller.dart';
 import 'package:reward_yourself/app/modules/tasks/presenter/complete_task_controller.dart';
 import 'package:reward_yourself/app/modules/tasks/presenter/delete_task_controller.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage(
-      {Key? key,
-      required this.homeController,
-      required this.completeTaskController,
-      required this.deleteTaskController})
-      : super(key: key);
+  const HomePage({
+    Key? key,
+    required this.homeController,
+    required this.completeTaskController,
+    required this.deleteTaskController,
+    required this.completeRewardController,
+    required this.deleteRewardController,
+  }) : super(key: key);
 
   final HomeController homeController;
 
   final CompleteTaskController completeTaskController;
   final DeleteTaskController deleteTaskController;
+  final CompleteRewardController completeRewardController;
+  final DeleteRewardController deleteRewardController;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -33,6 +41,8 @@ class _HomePageState extends State<HomePage> {
     widget.homeController.getTasks(FirebaseAuth.instance.currentUser!.uid);
     super.initState();
   }
+
+  final pageController = PageController();
 
   String userName = '';
   String textUser = '';
@@ -99,181 +109,46 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Material(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          elevation: 2,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFFFF7E3),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 16),
-                            child: MoneyWidget(),
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 16, left: 16, bottom: 8),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Material(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        elevation: 2,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFFF7E3),
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
                           ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 16),
+                          child: MoneyWidget(),
                         ),
                       ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Padding(padding: EdgeInsets.only(bottom: 23)),
-                      Row(
-                        children: const [
-                          Text("Suas ",
-                              style: TextStyle(
-                                  fontFamily: 'MavenPro',
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(143, 143, 143, 1))),
-                          Text("Tarefas",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'MavenPro',
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(143, 143, 143, 1)))
-                        ],
-                      ),
-                      SingleChildScrollView(
-                        child: StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection("tasks")
-                              .where('user',
-                                  isEqualTo:
-                                      FirebaseAuth.instance.currentUser!.uid)
-                              .snapshots(),
-                          builder: (((context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting)
-                              return CircularProgressIndicator();
-
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              itemCount: snapshot.data!.docs
-                                  .where((element) => element
-                                      .data()
-                                      .containsValue(FirebaseAuth
-                                          .instance.currentUser!.uid))
-                                  .length,
-                              itemBuilder: (context, index) {
-                                DocumentSnapshot documentSnapshot =
-                                    snapshot.data!.docs[index];
-                                return Slidable(
-                                  endActionPane: ActionPane(
-                                      motion: const ScrollMotion(),
-                                      children: [
-                                        SlidableAction(
-                                          onPressed: (_) {
-                                            Modular.to.pushNamed(
-                                                '/tasks/edit/${documentSnapshot.id}');
-                                          },
-                                          backgroundColor:
-                                              const Color(0xFFfbac53),
-                                          foregroundColor: Colors.white,
-                                          icon: Icons.edit,
-                                          label: 'Editar',
-                                        ),
-                                        SlidableAction(
-                                          onPressed: (_) {
-                                            widget.deleteTaskController
-                                                .deleteTask(
-                                                    documentSnapshot.id);
-                                          },
-                                          backgroundColor: Colors.red,
-                                          foregroundColor: Colors.white,
-                                          icon: Icons.delete,
-                                          label: 'Excluir',
-                                        ),
-                                      ]),
-                                  child: Card(
-                                    child: ListTile(
-                                      minVerticalPadding: 16,
-                                      leading: CircleAvatar(
-                                        backgroundColor:
-                                            const Color(0xFFfbac53),
-                                        foregroundColor: Colors.black,
-                                        child: IconButton(
-                                          icon: const Icon(
-                                            Icons.done,
-                                            size: 24,
-                                          ),
-                                          onPressed: (() {
-                                            widget.completeTaskController
-                                                .completeTask(
-                                                    documentSnapshot.id,
-                                                    FirebaseAuth.instance
-                                                        .currentUser!.uid);
-                                          }),
-                                        ),
-                                      ),
-                                      title: Text(
-                                        documentSnapshot['title'],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontFamily: 'Maven Pro',
-                                          fontSize: 18,
-                                          color: Color(0xFF555555),
-                                        ),
-                                      ),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            documentSnapshot['description'] ??
-                                                "",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: 'Maven Pro',
-                                              fontSize: 14,
-                                              color: Color(0xFF555555),
-                                            ),
-                                          ),
-                                          Text(
-                                            "Duração: ${documentSnapshot['duration'].toString()} hora",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontFamily: 'Maven Pro',
-                                              fontSize: 12,
-                                              color: Color(0xFF555555),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      trailing: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Image.asset("assets/images/coin.png"),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Text(documentSnapshot['reward']
-                                              .toString()),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          })),
-                        ),
-                      ),
-                      //Observer(
-                      //  builder: (context) {
-                      //
-                      //  },
-                      //),
-                    ],
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: PageView(
+                      controller: pageController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        TasksListsWidget(
+                          completeTaskController: widget.completeTaskController,
+                          deleteTaskController: widget.deleteTaskController,
+                        ),
+                        RewardListWidget(
+                          completeRewardController:
+                              widget.completeRewardController,
+                          deleteRewardController: widget.deleteRewardController,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             )
           ],
@@ -284,12 +159,19 @@ class _HomePageState extends State<HomePage> {
           child: FloatingActionButton(
             backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
             foregroundColor: const Color(0xFFFDA951),
-            tooltip: "Adicionar Tarefas",
+            tooltip: "Adicionar",
             onPressed: () {
-              Modular.to.pushNamed('/tasks/create').then(
-                    (value) => widget.homeController
-                        .getTasks(FirebaseAuth.instance.currentUser!.uid),
-                  );
+              if (pageController.page == 0) {
+                Modular.to.pushNamed('/tasks/create').then(
+                      (value) => widget.homeController
+                          .getTasks(FirebaseAuth.instance.currentUser!.uid),
+                    );
+              } else {
+                Modular.to.pushNamed('/rewards/create').then(
+                      (value) => widget.homeController
+                          .getTasks(FirebaseAuth.instance.currentUser!.uid),
+                    );
+              }
             },
             child: const Icon(Icons.add),
           ),
@@ -299,7 +181,9 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromRGBO(246, 246, 246, 1),
-          onPressed: () {},
+          onPressed: () {
+            pageController.jumpToPage(1);
+          },
           child: Image.asset(
             "assets/images/Trophy.png",
             width: 50,
@@ -318,7 +202,9 @@ class _HomePageState extends State<HomePage> {
                       IconButton(
                         icon: Image.asset('assets/images/list.png'),
                         iconSize: 25,
-                        onPressed: () {},
+                        onPressed: () {
+                          pageController.jumpToPage(0);
+                        },
                       ),
                       const SizedBox(width: 24),
                       IconButton(

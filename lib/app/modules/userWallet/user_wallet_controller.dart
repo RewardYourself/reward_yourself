@@ -39,6 +39,24 @@ class UserWalletController {
     }
   }
 
+  Future<void> subtrairSaldo(String amount) async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      var value = double.parse(amount);
+
+      DocumentReference documentReference =
+          FirebaseFirestore.instance.collection('wallets').doc(uid);
+
+      FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot snapshot = await transaction.get(documentReference);
+        double newBalance = snapshot.get('amount') - value;
+        transaction.update(documentReference, {'amount': newBalance});
+      });
+    } catch (e) {
+      print("\n\n" + e.toString() + "\n\n");
+    }
+  }
+
   Future<WalletModel> getWallet(uid) async {
     final db = FirebaseFirestore.instance;
 
