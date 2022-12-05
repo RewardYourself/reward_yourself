@@ -1,10 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:reward_yourself/app/modules/home/presenter/home_controller.dart';
 import 'package:reward_yourself/app/modules/home/presenter/widgets/money_widget.dart';
 import 'package:reward_yourself/app/modules/home/presenter/widgets/rewards_list_widget.dart';
