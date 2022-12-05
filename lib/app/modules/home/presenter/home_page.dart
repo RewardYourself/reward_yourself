@@ -177,6 +177,7 @@ class _HomePageState extends State<HomePage> {
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+          tooltip: "Recompensas",
           backgroundColor: const Color.fromRGBO(246, 246, 246, 1),
           onPressed: () {
             pageController.jumpToPage(1);
@@ -197,6 +198,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
+                        tooltip: "Tarefas",
                         icon: Image.asset('assets/images/list.png'),
                         iconSize: 25,
                         onPressed: () {
@@ -205,9 +207,15 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(width: 24),
                       IconButton(
+                        tooltip: "Perfil",
                         icon: Image.asset('assets/images/person.png'),
                         iconSize: 25,
-                        onPressed: () {},
+                        onPressed: () {
+                          Modular.to.pushNamed('/profile/').then(
+                            (value) => widget.homeController
+                                .getTasks(FirebaseAuth.instance.currentUser!.uid),
+                          );
+                        },
                       ),
                     ],
                   )))),
